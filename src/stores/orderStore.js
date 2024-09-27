@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 import router from '@/router';
-import emitter from '@/methods/emitter';
 import Swal from 'sweetalert2';
+import toastStore from './toastStore';
+
+const toast = toastStore();
 
 export default defineStore('order', {
   state: () => ({
@@ -65,7 +67,7 @@ export default defineStore('order', {
             this.getOrder(this.order.id);
             this.isLoading = false;
             const messageTitle = '付款成功';
-            emitter.emit('push-message', {
+            toast.pushMessage({
               style: 'success',
               title: messageTitle,
               content: '已完成付款',

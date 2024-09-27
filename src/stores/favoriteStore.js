@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
-import emitter from '@/methods/emitter';
 import Swal from 'sweetalert2';
+import toastStore from './toastStore';
+
+const toast = toastStore();
 
 export default defineStore('favorite', {
   state: () => ({
@@ -16,7 +18,7 @@ export default defineStore('favorite', {
       this.favorited.splice(array.indexOf(product.id), 1);
       localStorage.setItem('favorite', JSON.stringify(this.favorited));
       const messageTitle = '已移除收藏';
-      emitter.emit('push-message', {
+      toast.pushMessage({
         style: 'danger',
         title: messageTitle,
         content: `已將${product.title}移除收藏`,
@@ -41,7 +43,7 @@ export default defineStore('favorite', {
       this.favorited = [];
       localStorage.setItem('favorite', JSON.stringify(this.favorited));
       const messageTitle = '已移除收藏';
-      emitter.emit('push-message', {
+      toast.pushMessage({
         style: 'danger',
         title: messageTitle,
         content: '已將全部商品移除收藏',
@@ -63,9 +65,6 @@ export default defineStore('favorite', {
         this.favorited.push(product);
       }
       localStorage.setItem('favorite', JSON.stringify(this.favorited));
-      // this.emitter.emit('get-like', {
-      //   favorited: this.favorited,
-      // });
     },
     // 切換愛心狀態
     favState(product) {

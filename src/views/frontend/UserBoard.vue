@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import emitter from '@/methods/emitter';
 import UserNavbar from '@/components/frontend/UserNavbar.vue';
 import UserFooter from '@/components/frontend/UserFooter.vue';
 import ToastMessages from '@/components/ToastMessages.vue';
@@ -20,11 +19,6 @@ export default {
     UserNavbar,
     UserFooter,
     ToastMessages,
-  },
-  provide() {
-    return {
-      emitter,
-    };
   },
   methods: {
     toggleNav(e) {

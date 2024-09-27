@@ -7,26 +7,15 @@
 
 <script>
 import ToastList from '@/components/ToastList.vue';
+import toastStore from '@/stores/toastStore';
+import { mapState } from 'pinia';
 
 export default {
   components: {
     ToastList,
   },
-  data() {
-    return {
-      messages: [],
-    };
-  },
-  inject: ['emitter'],
-  mounted() {
-    this.emitter.on('push-message', (message) => {
-      const { style, title, content } = message;
-      this.messages.push({ style, title, content });
-    });
-    this.emitter.on('delete-message', (message) => {
-      const { style, title, content } = message;
-      this.messages.push({ style, title, content });
-    });
+  computed: {
+    ...mapState(toastStore, ['messages']),
   },
 };
 </script>

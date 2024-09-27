@@ -148,10 +148,10 @@
 import cartStore from '@/stores/cartStore';
 import orderStore from '@/stores/orderStore';
 import pathStore from '@/stores/pathStore';
+import toastStore from '@/stores/toastStore';
 import { mapState, mapActions } from 'pinia';
 
 export default {
-  inject: ['emitter'],
   computed: {
     ...mapState(orderStore, ['couponCode', 'order', 'isLoading']),
   },
@@ -159,10 +159,11 @@ export default {
     ...mapActions(cartStore, ['returnIndex', 'gotoShop']),
     ...mapActions(orderStore, ['getOrder', 'payOrder']),
     ...mapActions(pathStore, ['getPath']),
+    ...mapActions(toastStore, ['pushMessage']),
     copyOrderId() {
       navigator.clipboard.writeText(this.$refs.orderId.textContent);
       const messageTitle = '複製成功';
-      this.emitter.emit('push-message', {
+      this.pushMessage({
         style: 'success',
         title: messageTitle,
         content: '已複製',

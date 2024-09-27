@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 import router from '@/router';
-import emitter from '@/methods/emitter';
 import Swal from 'sweetalert2';
+import toastStore from './toastStore';
+
+const toast = toastStore();
 
 export default defineStore('cart', {
   state: () => ({
@@ -15,17 +17,18 @@ export default defineStore('cart', {
   actions: {
     // 取得購物車列表
     getCart() {
-      // this.isLoading = true;
+      this.isLoading = true;
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
       axios.get(url)
         .then((res) => {
           this.cart = res.data.data;
           this.cartLength = this.cart.carts.length;
+          this.isLoading = false;
         });
     },
     // 修改購物車數量
     updateCart(item, num) {
-      // this.isLoading = true;
+      this.isLoading = true;
       let quantity = num;
       if (quantity > 20) { // 單品項超過20，數量就調整到20
         quantity = 20;
@@ -40,7 +43,7 @@ export default defineStore('cart', {
       axios.put(url, { data: cart })
         .then(() => {
           this.getCart();
-          // this.isLoading = false;
+          this.isLoading = false;
         });
     },
     // 加入購物車
@@ -65,7 +68,7 @@ export default defineStore('cart', {
           this.btnLoading = '';
           if (res.data.data.qty > 20) { // 品項數量超過20，updateCart調整品項數量為20
             const messageTitle = '已加入到最大數量';
-            emitter.emit('push-message', {
+            toast.pushMessage({
               style: 'warning',
               title: messageTitle,
               content: `購物車內目前已有20件${title}`,
@@ -73,7 +76,7 @@ export default defineStore('cart', {
             this.updateCart(existingProduct[0], 20);
           } else {
             const messageTitle = '加入成功';
-            emitter.emit('push-message', {
+            toast.pushMessage({
               style: 'success',
               title: messageTitle,
               content: `已將${title}加入購物車`,
@@ -84,14 +87,14 @@ export default defineStore('cart', {
     },
     // 刪除單品項
     deleteCartItem(item) {
-      // this.isLoading = true;
+      this.isLoading = true;
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${item.id}`;
       axios.delete(url)
         .then(() => {
           this.getCart();
-          // this.isLoading = false;
+          this.isLoading = false;
           const messageTitle = '已移除品項';
-          emitter.emit('push-message', {
+          toast.pushMessage({
             style: 'danger',
             title: messageTitle,
             content: `已將${item.product.title}移除`,
@@ -100,14 +103,14 @@ export default defineStore('cart', {
     },
     // 清空購物車
     deleteAll() {
-      // this.isLoading = true;
+      this.isLoading = true;
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/carts`;
       axios.delete(url)
         .then(() => {
           this.getCart();
-          // this.isLoading = false;
+          this.isLoading = false;
           const messageTitle = '已移除全部品項';
-          emitter.emit('push-message', {
+          toast.pushMessage({
             style: 'danger',
             title: messageTitle,
             content: '已將全部品項移除',
@@ -130,7 +133,7 @@ export default defineStore('cart', {
     },
     // 加入優惠券
     addCouponCode(couponCode) {
-      // this.isLoading = true;
+      this.isLoading = true;
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/coupon`;
       const dataCode = { code: couponCode };
       axios.post(url, { data: dataCode })
@@ -141,7 +144,7 @@ export default defineStore('cart', {
           } else {
             this.couponWarning = '找不到優惠券';
           }
-          // this.isLoading = false;
+          this.isLoading = false;
         });
     },
     // 回上一頁

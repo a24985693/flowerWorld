@@ -70,7 +70,6 @@ export default {
       bsCollapse: {},
     };
   },
-  inject: ['emitter'],
   computed: {
     ...mapState(cartStore, ['cartLength']),
     ...mapState(favoriteStore, ['favorited']),
