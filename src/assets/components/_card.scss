@@ -1,0 +1,145 @@
+.product-card {
+  cursor: pointer;
+  max-width: 250px;
+  img {
+    transform:scale(1,1);transition: all 0.5s ease-out;
+    height: 180px;
+  }
+  .more-text {
+    z-index: 2;
+    width: 100%;
+    transform:translateY(90px);transition: all 0.5s ease-out;
+  }
+  .sale {
+    z-index: 2;
+  }
+  .card-body {
+    position: relative;
+    .fa-heart {
+      font-size: 20px;
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      z-index: 100;
+    }
+    .fa-solid {
+      color: $info;
+    }
+    .card-title {
+      font-size: 16px;
+    }
+    .price {
+      font-size: 14px;
+    }
+    del {
+      font-size: 12px;
+    }
+  }
+  button {
+    z-index: 100;
+  }
+  button:hover {
+    color: $white;
+    background-color: $info;
+  }
+  &:hover img {
+    transform: scale(1.1);
+    transition: 0.2s;
+    filter: brightness(70%);
+  }
+  &:hover .more-text {
+    transform:translateY(0);
+    transition: 0.3s;
+  }
+
+}
+.category .card {
+  height: 230px;
+  p {
+    margin-bottom: 0;
+  }
+  button {
+    opacity: 0;
+    height: 0;
+    padding: 0 12px;
+    border: 0;
+    visibility: hidden;
+  }
+  &:hover button{
+    opacity: 1;
+    height: auto;
+    padding: 6px 12px;
+    border: 1px;
+    margin-top: 16px;
+    visibility: visible;
+    transition: all .5s ease;
+  }
+  img {
+    filter: brightness(75%);
+  }
+}
+
+.userArticles {
+  .articles-border {
+    border-bottom: 1px solid $gray;
+  }
+  .content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;    
+  }
+  .img-frame {
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    border: 1.5px solid #887474;
+    transition: all 0.5s ease;
+  }
+  .card:hover .img-frame {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: 0px solid #887474;
+  }
+  .more {
+    margin-right: 5px;
+    transition: all 0.5s ease;
+  }
+  .card:hover .more {
+    margin-right: -10px;
+  }
+}
+
+@media (min-width: 576px) {
+  .product-card {
+    img {
+      max-height: 180px;
+    }
+    .card-body {
+      .card-title { 
+        font-size: 20px;
+      }
+      .price {
+        font-size: 20px;
+      }
+      del {
+        font-size: 16px;
+      }
+    }
+  }
+}
+  
+
+@media (min-width: 768px) {
+  .category-top .card{
+    height: 370px;
+  }
+  .category-bottom  .card{
+    height: 608px;
+  }
+}

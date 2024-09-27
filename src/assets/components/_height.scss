@@ -1,0 +1,24 @@
+body {
+  overflow-x: hidden;
+}
+footer {
+  height: 320px;
+  flex: 0;
+}
+.view-height {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.user-view {
+  flex: 1;
+  padding-bottom: 100px;
+  padding-top: 150px;
+}
+#app {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}

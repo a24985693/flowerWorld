@@ -1,0 +1,19 @@
+.updateNum {
+  button {
+    border: none;
+    padding-right: 0;
+    padding-left: 0;
+  }
+  input {
+    text-align: center;
+    border: 0;
+    background-color: transparent;
+    width: 50px;
+    outline: none;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
