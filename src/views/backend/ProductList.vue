@@ -33,7 +33,7 @@
               <button class="btn btn-outline-gray btn-sm" type="button"
               @click="openModal(false, item)">編輯</button>
               <button class="btn btn-outline-danger btn-sm" type="button"
-              @click="openDelModal(item)">刪除</button>
+              @click="comfirmDelProduct(item)">刪除</button>
             </div>
           </td>
         </tr>
@@ -42,110 +42,37 @@
   </div>
   <PageNavigation :pagination="pagination"
     @update-page="getProducts"/>
-  <ProductModal ref="productModal" :product="tempProduct"
-    @update-product="updateProduct"/>
-  <DeleteModal ref="deleteModal" :product="tempProduct"
-    @delete-product="deleteProduct"/>
+  <ProductModal ref="productModal"/>
 </template>
 
 <script>
 import ProductModal from '@/components/backend/ProductModal.vue';
-import DeleteModal from '@/components/backend/DeleteModal.vue';
 import PageNavigation from '@/components/PageNavigation.vue';
+import adminProductStore from '@/stores/adminProductStore';
+import { mapState, mapActions } from 'pinia';
 
 export default {
   components: {
     ProductModal,
-    DeleteModal,
     PageNavigation,
   },
-  data() {
-    return {
-      products: [],
-      pagination: {},
-      tempProduct: {},
-      isNew: false,
-      isLoading: false,
-    };
+  computed: {
+    ...mapState(adminProductStore, [
+      'products',
+      'pagination',
+      'isNew',
+      'isLoading',
+    ]),
   },
-  inject: ['emitter'],
   methods: {
-    getProducts(page = 1) {
-      this.isLoading = true;
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products?page=${page}`;
-      this.$http.get(url)
-        .then((res) => {
-          this.products = res.data.products;
-          this.pagination = res.data.pagination;
-          this.isLoading = false;
-        });
-    },
+    ...mapActions(adminProductStore, [
+      'getProducts',
+      'getProduct',
+      'comfirmDelProduct',
+    ]),
     openModal(isNew, item) {
-      this.isNew = isNew;
-      if (!isNew) {
-        this.tempProduct = { ...item };
-      } else {
-        this.tempProduct = {};
-      }
+      this.getProduct(isNew, item);
       this.$refs.productModal.showModal();
-    },
-    openDelModal(item) {
-      this.tempProduct = item;
-      this.$refs.deleteModal.showModal();
-    },
-    updateProduct(item) {
-      this.isLoading = true;
-      this.tempProduct = item;
-      let url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`;
-      let method = 'post';
-      if (!this.isNew) {
-        url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${item.id}`;
-        method = 'put';
-      }
-      this.$http[method](url, { data: this.tempProduct })
-        .then((res) => {
-          this.$refs.productModal.hideModal();
-          let messageTitle = '新增成功';
-          if (!this.isNew) {
-            messageTitle = '更新成功';
-          }
-          if (res.data.success) {
-            this.getProducts();
-            this.emitter.emit('push-message', {
-              style: 'success',
-              title: messageTitle,
-            });
-          } else {
-            this.emitter.emit('push-message', {
-              style: 'danger',
-              title: messageTitle,
-              content: res.data.message.join('、'),
-            });
-          }
-          this.isLoading = false;
-        });
-    },
-    deleteProduct(id) {
-      this.isLoading = true;
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${id}`;
-      this.$http.delete(url)
-        .then((res) => {
-          if (res.data.success) {
-            this.emitter.emit('delete-message', {
-              style: 'success',
-              title: '刪除成功',
-            });
-          } else {
-            this.emitter.emit('delete-message', {
-              style: 'danger',
-              title: '刪除失敗',
-              content: res.data.message.join('、'),
-            });
-          }
-          this.$refs.deleteModal.hideModal();
-          this.getProducts();
-          this.isLoading = false;
-        });
     },
   },
   created() {

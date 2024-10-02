@@ -31,9 +31,9 @@
           <td>
             <div class="btn-group">
               <button class="btn btn-outline-gray btn-sm" type="button"
-                @click="getArticle(false, item)">編輯</button>
+                @click="openModal(false, item)">編輯</button>
               <button class="btn btn-outline-danger btn-sm" type="button"
-                @click="openDelModal(item)">刪除</button>
+                @click="comfirmDelArticle(item)">刪除</button>
             </div>
           </td>
         </tr>
@@ -42,123 +42,38 @@
   </div>
   <PageNavigation :pagination="pagination"
     @update-page="getArticles"/>
-  <ArticleModal ref="ArticleModal" :article="tempArticle"
-    @update-article="updateArticle"/>
-  <DelArticleModal ref="DelArticleModal" :article="tempArticle"
-    @delete-article="deleteArticle"/>
+  <ArticleModal ref="ArticleModal"/>
 </template>
 
 <script>
 import ArticleModal from '@/components/backend/ArticleModal.vue';
-import DelArticleModal from '@/components/backend/DelArticleModal.vue';
 import PageNavigation from '@/components/PageNavigation.vue';
+import adminArticleStore from '@/stores/adminArticleStore';
+import { mapState, mapActions } from 'pinia';
 
 export default {
   components: {
     ArticleModal,
-    DelArticleModal,
     PageNavigation,
   },
-  data() {
-    return {
-      articles: [],
-      pagination: {},
-      tempArticle: {},
-      isNew: false,
-      isLoading: false,
-    };
+  computed: {
+    ...mapState(adminArticleStore, [
+      'articles',
+      'pagination',
+      'isNew',
+      'isLoading',
+    ]),
   },
-  inject: ['emitter'],
   methods: {
-    getArticles(page = 1) {
-      this.isLoading = true;
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/articles?page=${page}`;
-      this.$http.get(url)
-        .then((res) => {
-          this.articles = res.data.articles;
-          this.pagination = res.data.pagination;
-          this.isLoading = false;
-        });
-    },
+    ...mapActions(adminArticleStore, [
+      'getArticles',
+      'getArticle',
+      'comfirmDelArticle',
+    ]),
     openModal(isNew, item) {
-      this.isNew = isNew;
-      if (!isNew) {
-        this.tempArticle = { ...item };
-      } else {
-        this.tempArticle = {
-          create_at: new Date().getTime() / 1000,
-        };
-      }
+      // 判斷是否新增或編輯並取得文章內容
+      this.getArticle(isNew, item);
       this.$refs.ArticleModal.showModal();
-    },
-    getArticle(isNew, item) {
-      this.isLoading = true;
-      this.isNew = isNew;
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${item.id}`;
-      this.$http.get(url)
-        .then((res) => {
-          this.openModal(isNew, item);
-          this.tempArticle.content = res.data.article.content;
-          this.isLoading = false;
-        });
-    },
-    openDelModal(item) {
-      this.tempArticle = item;
-      this.$refs.DelArticleModal.showModal();
-    },
-    updateArticle(item) {
-      this.isLoading = true;
-      this.tempArticle = item;
-      let url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article`;
-      let method = 'post';
-      if (!this.isNew) {
-        url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${item.id}`;
-        method = 'put';
-      }
-      this.$http[method](url, { data: this.tempArticle })
-        .then((res) => {
-          this.$refs.ArticleModal.hideModal();
-          let messageTitle = '新增成功';
-          if (!this.isNew) {
-            messageTitle = '更新成功';
-          }
-          if (res.data.success) {
-            this.getArticles();
-            this.emitter.emit('push-message', {
-              style: 'success',
-              title: messageTitle,
-            });
-          } else {
-            this.emitter.emit('push-message', {
-              style: 'danger',
-              title: messageTitle,
-              content: res.data.message.join('、'),
-            });
-          }
-          this.isLoading = false;
-        });
-    },
-    deleteArticle(item) {
-      this.isLoading = true;
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${item.id}`;
-      this.$http.delete(url)
-        .then((res) => {
-          if (res.data.success) {
-            this.emitter.emit('delete-message', {
-              style: 'success',
-              title: '刪除成功',
-            });
-          } else {
-            this.emitter.emit('delete-message', {
-              style: 'danger',
-              title: '刪除失敗',
-              content: res.data.message.join('、'),
-            });
-          }
-          this.$refs.DelArticleModal.hideModal();
-          this.getArticles();
-          this.isLoading = false;
-        });
     },
   },
   created() {

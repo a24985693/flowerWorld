@@ -15,7 +15,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-gray" data-bs-dismiss="modal">取消</button>
           <button type="button" class="btn btn-danger"
-            @click="$emit('delete-article', tempArticle)">刪除</button>
+            @click="sendDeleteArticle()">刪除</button>
         </div>
       </div>
     </div>
@@ -24,21 +24,20 @@
 
 <script>
 import modalMixin from '@/mixins/modalMixin';
+import adminArticleStore from '@/stores/adminArticleStore';
+import { mapState, mapActions } from 'pinia';
 
 export default {
-  props: {
-    article: {},
+  mixins: [modalMixin],
+  computed: {
+    ...mapState(adminArticleStore, ['tempArticle']),
   },
-  watch: {
-    article() {
-      this.tempArticle = this.article;
+  methods: {
+    ...mapActions(adminArticleStore, ['deleteArticle']),
+    sendDeleteArticle() {
+      this.deleteArticle(this.tempArticle);
+      this.$refs.DelArticleModal.hideModal();
     },
   },
-  data() {
-    return {
-      tempArticle: {},
-    };
-  },
-  mixins: [modalMixin],
 };
 </script>

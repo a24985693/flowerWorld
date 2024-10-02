@@ -30,121 +30,50 @@
               <button class="btn btn-outline-gray btn-sm" type="button"
                 @click="openModal(false, item)">編輯</button>
               <button class="btn btn-outline-danger btn-sm" type="button"
-                @click="openDelModal(item)">刪除</button>
+                @click="comfirmDelCoupon(item)">刪除</button>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <CouponModal ref="CouponModal" :coupon="tempCoupon"
-    @update-coupon="updateCoupon"/>
-  <DelCouponModal ref="DelCouponModal" :coupon="tempCoupon"
-    @delete-coupon="deleteCoupon"/>
+  <CouponModal ref="CouponModal"/>
   <PageNavigation :pagination="pagination"
     @update-page="getCoupons"/>
 </template>
 
 <script>
 import CouponModal from '@/components/backend/CouponModal.vue';
-import DelCouponModal from '@/components/backend/DelCouponModal.vue';
 import PageNavigation from '@/components/PageNavigation.vue';
+import adminCouponStore from '@/stores/adminCouponStore';
+import { mapState, mapActions } from 'pinia';
 
 export default {
   components: {
     CouponModal,
-    DelCouponModal,
     PageNavigation,
   },
-  data() {
-    return {
-      coupons: [],
-      tempCoupon: {},
-      pagination: {},
-      isNew: false,
-      isLoading: false,
-    };
+  computed: {
+    ...mapState(adminCouponStore, [
+      'coupons',
+      'pagination',
+      'isNew',
+      'isLoading',
+    ]),
   },
-  inject: ['emitter'],
   methods: {
-    getCoupons(page = 1) {
-      this.isLoading = true;
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupons?page=${page}`;
-      this.$http.get(url)
-        .then((res) => {
-          this.coupons = res.data.coupons;
-          this.pagination = res.data.pagination;
-          this.isLoading = false;
-        });
-    },
+    ...mapActions(adminCouponStore, [
+      'getCoupons',
+      'getCoupon',
+      'comfirmDelCoupon',
+    ]),
     openModal(isNew, item) {
-      this.isNew = isNew;
-      if (!isNew) {
-        this.tempCoupon = { ...item };
-      } else {
-        this.tempCoupon = {
-          due_date: new Date().getTime() / 1000,
-        };
-      }
+      this.getCoupon(isNew, item);
       this.$refs.CouponModal.showModal();
-    },
-    updateCoupon(item) {
-      this.isLoading = true;
-      this.tempProduct = item;
-      let url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon`;
-      let method = 'post';
-      if (!this.isNew) {
-        url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${item.id}`;
-        method = 'put';
-      }
-      this.$http[method](url, { data: this.tempProduct })
-        .then((res) => {
-          this.$refs.CouponModal.hideModal();
-          let messageTitle = '新增成功';
-          if (!this.isNew) {
-            messageTitle = '更新成功';
-          }
-          if (res.data.success) {
-            this.getCoupons();
-            this.emitter.emit('push-message', {
-              style: 'success',
-              title: messageTitle,
-            });
-          } else {
-            this.emitter.emit('push-message', {
-              style: 'danger',
-              title: messageTitle,
-              content: res.data.message.join('、'),
-            });
-          }
-          this.isLoading = false;
-        });
     },
     openDelModal(item) {
       this.tempCoupon = item;
       this.$refs.DelCouponModal.showModal();
-    },
-    deleteCoupon(item) {
-      this.isLoading = true;
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${item.id}`;
-      this.$http.delete(url)
-        .then((res) => {
-          this.$refs.DelCouponModal.hideModal();
-          this.getCoupons();
-          if (res.data.success) {
-            this.emitter.emit('delete-message', {
-              style: 'success',
-              title: '刪除成功',
-            });
-          } else {
-            this.emitter.emit('delete-message', {
-              style: 'danger',
-              title: '刪除失敗',
-              content: res.data.message.join('、'),
-            });
-          }
-          this.isLoading = false;
-        });
     },
   },
   created() {

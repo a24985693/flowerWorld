@@ -33,103 +33,45 @@
               <button class="btn btn-outline-gray btn-sm" type="button"
                 @click="openModal(item)">編輯</button>
               <button class="btn btn-outline-danger btn-sm" type="button"
-                @click="openDelModal(item)">刪除</button>
+                @click="comfirmDelOrder(item)">刪除</button>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <OrderModal ref="OrderModal" :order="tempOrder"
-    @update-order="updateOrder"/>
-  <DelOrderModal ref="DelOrderModal" :order="tempOrder"
-    @delete-order="deleteOrder"/>
+  <OrderModal ref="OrderModal"/>
   <PageNavigation :pagination="pagination"
     @update-page="getOrders"/>
 </template>
 
 <script>
 import OrderModal from '@/components/backend/OrderModal.vue';
-import DelOrderModal from '@/components/backend/DelOrderModal.vue';
 import PageNavigation from '@/components/PageNavigation.vue';
+import adminOrderStore from '@/stores/adminOrderStore';
+import { mapState, mapActions } from 'pinia';
 
 export default {
   components: {
     OrderModal,
-    DelOrderModal,
     PageNavigation,
   },
-  data() {
-    return {
-      orders: {},
-      tempOrder: {},
-      pagination: {},
-      isLoading: false,
-    };
+  computed: {
+    ...mapState(adminOrderStore, [
+      'orders',
+      'pagination',
+      'isLoading',
+    ]),
   },
-  inject: ['emitter'],
   methods: {
-    getOrders(page = 1) {
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/orders?page=${page}`;
-      this.$http.get(url)
-        .then((res) => {
-          this.orders = res.data.orders;
-          this.pagination = res.data.pagination;
-        });
-    },
+    ...mapActions(adminOrderStore, [
+      'getOrders',
+      'getOrder',
+      'comfirmDelOrder',
+    ]),
     openModal(item) {
-      this.tempOrder = { ...item };
+      this.getOrder(item);
       this.$refs.OrderModal.showModal();
-    },
-    updateOrder(item) {
-      this.isLoading = true;
-      this.tempOrder = item;
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/order/${item.id}`;
-      this.$http.put(url, { data: this.tempOrder })
-        .then((res) => {
-          this.$refs.OrderModal.hideModal();
-          const messageTitle = '更新成功';
-          if (res.data.success) {
-            this.getOrders();
-            this.emitter.emit('push-message', {
-              style: 'success',
-              title: messageTitle,
-            });
-          } else {
-            this.emitter.emit('push-message', {
-              style: 'danger',
-              title: messageTitle,
-              content: res.data.message.join('、'),
-            });
-          }
-          this.isLoading = false;
-        });
-    },
-    openDelModal(item) {
-      this.tempOrder = { ...item };
-      this.$refs.DelOrderModal.showModal();
-    },
-    deleteOrder() {
-      this.isLoading = true;
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/order/${this.tempOrder.id}`;
-      this.$http.delete(url)
-        .then((res) => {
-          this.isLoading = false;
-          this.$refs.DelOrderModal.hideModal();
-          this.getOrders();
-          if (res.data.success) {
-            this.emitter.emit('delete-message', {
-              style: 'success',
-              title: '刪除成功',
-            });
-          } else {
-            this.emitter.emit('delete-message', {
-              style: 'danger',
-              title: '刪除失敗',
-              content: res.data.message.join('、'),
-            });
-          }
-        });
     },
   },
   created() {

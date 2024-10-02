@@ -13,12 +13,12 @@
           <div class="modal-body">
             <div class="mb-3">
               <label for="total">請輸入金額</label>
-              <input type="num" class="form-control" id="total"
-                v-model="tempOrder.total">
+              <input type="number" class="form-control" id="total"
+                v-model="order.total">
             </div>
             <div class="mb-3">
               <input type="checkbox" class="form-check-input" id="is_paid"
-                v-model="tempOrder.is_paid">
+                v-model="order.is_paid">
               <label for="is_paid">是否付款</label>
             </div>
           </div>
@@ -26,7 +26,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-gray" data-bs-dismiss="modal">取消</button>
           <button type="button" class="btn btn-secondary"
-            @click="$emit('update-order', tempOrder)">確認</button>
+            @click="sendUpdateOrder">確認</button>
         </div>
       </div>
     </div>
@@ -35,21 +35,30 @@
 
 <script>
 import modalMixin from '@/mixins/modalMixin';
+import adminOrderStore from '@/stores/adminOrderStore';
+import { mapState, mapActions } from 'pinia';
 
 export default {
+  mixins: [modalMixin],
   watch: {
-    order() {
-      this.tempOrder = this.order;
+    tempOrder() {
+      this.order = this.tempOrder;
     },
-  },
-  props: {
-    order: {},
   },
   data() {
     return {
-      tempOrder: {},
+      order: {},
     };
   },
-  mixins: [modalMixin],
+  computed: {
+    ...mapState(adminOrderStore, ['tempOrder']),
+  },
+  methods: {
+    ...mapActions(adminOrderStore, ['updateOrder']),
+    sendUpdateOrder() {
+      this.updateOrder(this.order);
+      this.hideModal();
+    },
+  },
 };
 </script>

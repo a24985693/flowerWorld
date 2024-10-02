@@ -6,7 +6,7 @@
       <div class="modal-content border-0">
         <div class="modal-header bg-dark text-white">
           <h5 class="modal-title" id="exampleModalLabel">
-            <span v-if="tempArticle.id">編輯文章</span>
+            <span v-if="article.id">編輯文章</span>
             <span v-else>新增文章</span>
           </h5>
           <button type="button" class="btn-close text-white"
@@ -17,22 +17,22 @@
             <div class="mb-3">
               <label for="tag">請輸入標籤</label>
               <input type="text" class="form-control" id="tag"
-                v-model="tempArticle.tag">
+                v-model="article.tag">
             </div>
             <div class="mb-3">
               <label for="title">請輸入標題</label>
               <input type="text" class="form-control" id="title"
-                v-model="tempArticle.title">
+                v-model="article.title">
             </div>
             <div class="mb-3">
               <label for="author">請輸入作者</label>
               <input type="text" class="form-control" id="author"
-                v-model="tempArticle.author">
+                v-model="article.author">
             </div>
             <div class="mb-3">
               <label for="content">請輸入內容</label>
               <textarea type="text" class="form-control" id="content"
-                v-model="tempArticle.content"/>
+                v-model="article.content"/>
             </div>
             <div class="mb-3">
               <label for="create_at">創作日期</label>
@@ -41,7 +41,7 @@
             </div>
             <div class="mb-3">
               <input type="checkbox" class="form-check-input" id="is_public"
-                v-model="tempArticle.isPublic">
+                v-model="article.isPublic">
               <label for="is_public">是否公開</label>
             </div>
             <hr>
@@ -52,25 +52,25 @@
                 <input type="text" class="form-control" id="imageUrl"
                   placeholder="請輸入圖片連結" ref="inputLink">
                 <button type="button" class="btn btn-secondary"
-                  @click="uploadLink">
+                  @click="sendUploadLink">
                   新增圖片
                 </button>
               </div>
             </label>
             <label for="customFile" class="form-label">或上傳圖片</label>
-            <i class="fas fa-spinner fa-spin"></i>
+            <i class="fas fa-spinner fa-spin"  v-if="btnLoading"/>
             <input type="file" id="customFile" class="form-control mb-3"
-              @change="uploadFile" ref="inputFile">
+              @change="sendUploadFile" ref="inputFile">
             </div>
-            <div class="row justify-content-center" v-if="tempArticle.image">
+            <div class="row justify-content-center" v-if="article.image">
               <div class="col-md-6">
                 <img class="img-fluid object-fit-cover" alt="圖片"
-                :src="tempArticle.image">
+                :src="article.image">
                 <div class="mb-3 input-group">
                   <input type="url" class="form-control"
-                    placeholder="請輸入連結" v-model="tempArticle.image">
+                    placeholder="請輸入連結" v-model="article.image">
                   <button type="button" class="btn btn-outline-danger"
-                    @click="tempArticle.image = '';">
+                    @click="article.image = '';">
                     移除
                   </button>
                 </div>
@@ -82,7 +82,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-gray" data-bs-dismiss="modal">取消</button>
           <button type="button" class="btn btn-secondary"
-            @click="$emit('update-article', tempArticle)">確認</button>
+            @click="sendUpdateArticle()">確認</button>
         </div>
       </div>
     </div>
@@ -91,41 +91,48 @@
 
 <script>
 import modalMixin from '@/mixins/modalMixin';
+import adminArticleStore from '@/stores/adminArticleStore';
+import { mapState, mapActions } from 'pinia';
 
 export default {
-  props: {
-    article: {},
-  },
   watch: {
-    article() {
-      this.tempArticle = this.article;
-      const dateAndTime = new Date(this.tempArticle.create_at * 1000).toISOString().split('T');
+    tempArticle() {
+      this.article = this.tempArticle;
+      const dateAndTime = new Date(this.article.create_at * 1000).toISOString().split('T');
       [this.createdAt] = dateAndTime;
     },
     createdAt() {
-      this.tempArticle.create_at = Math.floor(new Date(this.createdAt) / 1000);
+      this.article.create_at = Math.floor(new Date(this.createdAt) / 1000);
+      this.updateCreateAt(this.article.create_at);
     },
   },
   data() {
     return {
-      tempArticle: {},
+      article: {},
       createdAt: '',
     };
   },
   mixins: [modalMixin],
+  computed: {
+    ...mapState(adminArticleStore, ['tempArticle', 'btnLoading']),
+  },
   methods: {
-    uploadFile() {
-      const uploadedFile = this.$refs.inputFile.files[0];
-      const formData = new FormData();
-      formData.append('file-to-upload', uploadedFile);
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
-      this.$http.post(url, formData)
-        .then((res) => {
-          this.tempArticle.image = res.data.image;
-        });
+    ...mapActions(adminArticleStore, [
+      'updateArticle',
+      'updateCreateAt',
+      'uploadFile',
+      'uploadLink',
+    ]),
+    sendUpdateArticle() {
+      this.updateArticle(this.article, this.createdAt);
+      this.hideModal();
     },
-    uploadLink() {
-      this.tempArticle.image = this.$refs.inputLink.value;
+    sendUploadFile() {
+      const uploadedFile = this.$refs.inputFile.files[0];
+      this.uploadFile(uploadedFile);
+    },
+    sendUploadLink() {
+      this.uploadLink(this.$refs.inputLink.value);
       this.$refs.inputLink.value = '';
     },
   },

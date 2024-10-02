@@ -10,7 +10,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <router-link class="nav-link mx-1" to="/dashboard/prodPucts">產品列表</router-link>
+            <router-link class="nav-link mx-1" to="/dashboard/products">產品列表</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link mx-1" to="/dashboard/orders">訂單</router-link>
