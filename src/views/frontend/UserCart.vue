@@ -35,8 +35,8 @@
                 <li class="col-5 col-md-2">
                   <div class="product-img">
                     <img :src="item.product.imageUrl" alt="商品圖片" class="object-fit-cover"
-                      @click="getProduct(item.product.id)"
-                      @keydown="getProduct(item.product.id)">
+                      @click="gotoProduct(item.product.id)"
+                      @keydown="gotoProduct(item.product.id)">
                   </div>
                 </li>
                 <li class="col-5 col-md-9 product-content">
@@ -179,7 +179,6 @@ export default {
       'confirmDeleteAll',
       'addCouponCode',
       'returnPage',
-      'returnIndex',
       'gotoShop',
     ]),
     ...mapActions(pathStore, ['getPath']),

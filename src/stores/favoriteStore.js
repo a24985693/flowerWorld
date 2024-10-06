@@ -17,6 +17,7 @@ export default defineStore('favorite', {
       });
       this.favorited.splice(array.indexOf(product.id), 1);
       localStorage.setItem('favorite', JSON.stringify(this.favorited));
+
       const messageTitle = '已移除收藏';
       toast.pushMessage({
         style: 'danger',
@@ -42,6 +43,7 @@ export default defineStore('favorite', {
     clearAllFav() {
       this.favorited = [];
       localStorage.setItem('favorite', JSON.stringify(this.favorited));
+
       const messageTitle = '已移除收藏';
       toast.pushMessage({
         style: 'danger',
@@ -72,6 +74,7 @@ export default defineStore('favorite', {
       this.favorited.forEach((item) => {
         array.push(item.id);
       });
+
       if (array.includes(product.id)) {
         return 'fa-solid fa-heart';
       }

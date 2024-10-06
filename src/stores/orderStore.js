@@ -21,10 +21,18 @@ export default defineStore('order', {
     createOrder(item) {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`;
+
       axios.post(url, { data: item })
         .then((res) => {
           this.isLoading = false;
           router.push(`/checkout/${res.data.orderId}`);
+        })
+        .catch(() => {
+          this.isLoading = false;
+          toast.pushMessage({
+            style: 'danger',
+            title: '訂單建立失敗',
+          });
         });
     },
     // 確認建立訂單
@@ -43,29 +51,53 @@ export default defineStore('order', {
       });
     },
     // 取得訂單
-    getOrder(id) {
+    getOrder(id, search) {
       this.isLoading = true;
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order/${id}`;
-      axios.get(url)
-        .then((res) => {
-          this.order = res.data.order;
-          const key = Object.keys(res.data.order.products)[0];
-          const productKey = res.data.order.products[key];
-          if (productKey.coupon) {
-            this.couponCode = productKey.coupon.code;
-          }
-          this.isLoading = false;
-        });
+
+      if (id) { // 如果id不為空
+        const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order/${id}`;
+        axios.get(url)
+          .then((res) => {
+            this.isLoading = false;
+            if (res.data.order) {
+              // 判斷是搜尋訂單還是取得訂單
+              if (search) {
+                this.searchOrder = res.data.order;
+              } else {
+                this.order = res.data.order;
+              }
+              // 取得優惠券碼
+              const key = Object.keys(res.data.order.products)[0];
+              const productKey = res.data.order.products[key];
+              if (productKey.coupon) {
+                this.couponCode = productKey.coupon.code;
+              }
+            } else {
+              this.warning = '訂單號碼輸入錯誤，請重新輸入';
+            }
+          })
+          .catch(() => {
+            this.isLoading = false;
+            toast.pushMessage({
+              style: 'danger',
+              title: '訂單取得失敗',
+            });
+          });
+      } else {
+        this.isLoading = false;
+        this.warning = '訂單號碼不可為空，請輸入訂單號碼';
+      }
     },
     // 付款
     payOrder() {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/pay/${this.order.id}`;
+
       axios.post(url)
         .then((res) => {
+          this.isLoading = false;
           if (res.data.success) {
             this.getOrder(this.order.id);
-            this.isLoading = false;
             const messageTitle = '付款成功';
             toast.pushMessage({
               style: 'success',
@@ -73,34 +105,14 @@ export default defineStore('order', {
               content: '已完成付款',
             });
           }
-        });
-    },
-    // 搜尋訂單
-    inquireOrder(id) {
-      this.searchOrder = {};
-      this.isLoading = true;
-      if (id) { // 如果id不為空
-        const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order/${id}`;
-        axios.get(url)
-          .then((res) => {
-            if (res.data.order) { // 有正確取得order
-              this.searchOrder = res.data.order;
-              const key = Object.keys(res.data.order.products)[0];
-              const productKey = res.data.order.products[key];
-              if (productKey.coupon) {
-                this.couponCode = productKey.coupon.code;
-              }
-              this.isLoading = false;
-            } else {
-              this.searchOrder = res.data.order;
-              this.warning = '訂單號碼輸入錯誤，請重新輸入';
-            }
-            this.isLoading = false;
+        })
+        .catch(() => {
+          this.isLoading = false;
+          toast.pushMessage({
+            style: 'danger',
+            title: '付款失敗',
           });
-      } else {
-        this.warning = '訂單號碼不可為空，請輸入訂單號碼';
-        this.isLoading = false;
-      }
+        });
     },
     gotoPay(id) {
       router.push(`/checkout/${id}`);

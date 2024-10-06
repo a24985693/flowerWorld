@@ -30,7 +30,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(productStore, ['updateCategory']),
+    ...mapActions(productStore, ['updateCategory', 'getProducts']),
     changeCategory(e) {
       this.category = e.target.textContent.trim();
       this.$router.push({
@@ -39,6 +39,8 @@ export default {
           category: this.category,
         },
       });
+      this.updateCategory(this.category);
+      this.getProducts();
     },
   },
   created() {

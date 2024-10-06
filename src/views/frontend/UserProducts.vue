@@ -119,11 +119,8 @@ export default {
   },
   computed: {
     ...mapState(productStore, [
-      'products',
       'pagination',
-      'renderProducts',
       'newData',
-      'tempCategory',
       'isLoading',
     ]),
     ...mapState(cartStore, ['btnLoading']),
@@ -132,7 +129,6 @@ export default {
     ...mapActions(productStore, [
       'gotoProduct',
       'getProducts',
-      'renderCategory',
       'sort',
       'getPage',
     ]),

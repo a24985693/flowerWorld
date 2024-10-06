@@ -146,11 +146,11 @@ export default {
     ...mapState(orderStore, ['couponCode', 'searchOrder', 'warning', 'isLoading']),
   },
   methods: {
-    ...mapActions(orderStore, ['inquireOrder', 'gotoPay']),
+    ...mapActions(orderStore, ['getOrder', 'gotoPay']),
     ...mapActions(pathStore, ['getPath']),
     sendSearchOrder() {
       const id = this.orderId.trim();
-      this.inquireOrder(id);
+      this.getOrder(id, 'search');
     },
     collapseIcon() {
       if (this.$refs.collapseIcon.className === 'fa-solid fa-caret-down') {

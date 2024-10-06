@@ -13,6 +13,8 @@
 import UserNavbar from '@/components/frontend/UserNavbar.vue';
 import UserFooter from '@/components/frontend/UserFooter.vue';
 import ToastMessages from '@/components/ToastMessages.vue';
+import toastStore from '@/stores/toastStore';
+import { mapActions } from 'pinia';
 
 export default {
   components: {
@@ -26,6 +28,10 @@ export default {
         this.$refs.UserNavbar.hideNav();
       }
     },
+    ...mapActions(toastStore, ['clearMessage']),
+  },
+  created() {
+    this.clearMessage();
   },
 };
 </script>

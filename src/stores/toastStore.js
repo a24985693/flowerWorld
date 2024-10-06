@@ -9,5 +9,8 @@ export default defineStore('toast', {
       const { style, title, content } = data;
       this.messages.push({ style, title, content });
     },
+    clearMessage() {
+      this.messages = [];
+    },
   },
 });

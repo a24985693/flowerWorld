@@ -19,11 +19,19 @@ export default defineStore('cart', {
     getCart() {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
+
       axios.get(url)
         .then((res) => {
+          this.isLoading = false;
           this.cart = res.data.data;
           this.cartLength = this.cart.carts.length;
+        })
+        .catch(() => {
           this.isLoading = false;
+          toast.pushMessage({
+            style: 'danger',
+            title: '購物車取得失敗',
+          });
         });
     },
     // 修改購物車數量
@@ -35,19 +43,28 @@ export default defineStore('cart', {
       } else if (quantity < 1) { // 單品項低於1，數量就調整到1
         quantity = 1;
       }
+
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${item.id}`;
       const cart = {
         product_id: item.product_id,
         qty: quantity,
       };
+
       axios.put(url, { data: cart })
         .then(() => {
           this.getCart();
-          this.isLoading = false;
+        })
+        .catch(() => {
+          toast.pushMessage({
+            style: 'danger',
+            title: '數量修改失敗',
+          });
         });
     },
     // 加入購物車
     addtoCart(item, quantity = 1) {
+      this.btnLoading = item.id;
+
       // 判斷購物車是否已有存在的商品
       let existingProduct;
       if (!this.cart.carts) {
@@ -56,17 +73,19 @@ export default defineStore('cart', {
         // 已有存在購物車的品項
         existingProduct = this.cart.carts.filter((i) => i.product_id === item.id);
       }
-      this.btnLoading = item.id;
+
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
       const cart = {
         product_id: item.id,
         qty: quantity,
       };
+
       axios.post(url, { data: cart })
         .then((res) => {
-          const { title } = res.data.data.product;
           this.btnLoading = '';
-          if (res.data.data.qty > 20) { // 品項數量超過20，updateCart調整品項數量為20
+          const { title } = res.data.data.product;
+          // 品項數量超過20，updateCart調整品項數量為20
+          if (res.data.data.qty > 20) {
             const messageTitle = '已加入到最大數量';
             toast.pushMessage({
               style: 'warning',
@@ -83,37 +102,35 @@ export default defineStore('cart', {
             });
             this.getCart();
           }
+        })
+        .catch(() => {
+          this.btnLoading = '';
+          toast.pushMessage({
+            style: 'danger',
+            title: '購物車加入失敗',
+          });
         });
     },
     // 刪除單品項
     deleteCartItem(item) {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${item.id}`;
+
       axios.delete(url)
         .then(() => {
           this.getCart();
-          this.isLoading = false;
           const messageTitle = '已移除品項';
           toast.pushMessage({
             style: 'danger',
             title: messageTitle,
             content: `已將${item.product.title}移除`,
           });
-        });
-    },
-    // 清空購物車
-    deleteAll() {
-      this.isLoading = true;
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/carts`;
-      axios.delete(url)
-        .then(() => {
-          this.getCart();
+        })
+        .catch(() => {
           this.isLoading = false;
-          const messageTitle = '已移除全部品項';
           toast.pushMessage({
             style: 'danger',
-            title: messageTitle,
-            content: '已將全部品項移除',
+            title: '購物車刪除失敗',
           });
         });
     },
@@ -131,20 +148,51 @@ export default defineStore('cart', {
         }
       });
     },
+    // 清空購物車
+    deleteAll() {
+      this.isLoading = true;
+      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/carts`;
+
+      axios.delete(url)
+        .then(() => {
+          this.getCart();
+          const messageTitle = '已移除全部品項';
+          toast.pushMessage({
+            style: 'danger',
+            title: messageTitle,
+            content: '已將全部品項移除',
+          });
+        })
+        .catch(() => {
+          this.isLoading = false;
+          toast.pushMessage({
+            style: 'danger',
+            title: '購物車刪除失敗',
+          });
+        });
+    },
     // 加入優惠券
     addCouponCode(couponCode) {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/coupon`;
       const dataCode = { code: couponCode };
+
       axios.post(url, { data: dataCode })
         .then((res) => {
           if (res.data.success) {
             this.getCart();
             this.couponWarning = '';
           } else {
+            this.isLoading = false;
             this.couponWarning = '找不到優惠券';
           }
+        })
+        .catch(() => {
           this.isLoading = false;
+          toast.pushMessage({
+            style: 'danger',
+            title: '優惠券加入失敗',
+          });
         });
     },
     // 回上一頁

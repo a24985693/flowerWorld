@@ -97,7 +97,7 @@ import { mapState, mapActions } from 'pinia';
 
 export default {
   computed: {
-    ...mapState(cartStore, ['cartLength', 'btnLoading']),
+    ...mapState(cartStore, ['btnLoading']),
     ...mapState(favoriteStore, ['favorited']),
   },
   methods: {
