@@ -98,14 +98,14 @@
   <section class="container  text-center">
     <h4 class="mb-4">推薦商品</h4>
     <div class="row">
-      <PreferSwiper/>
+      <PreferProduts/>
     </div>
   </section>
 </template>
 
 <script>
 import ProductSwiper from '@/components/frontend/ProductSwiper.vue';
-import PreferSwiper from '@/components/frontend/PreferSwiper.vue';
+import PreferProduts from '@/components/frontend/PreferProduts.vue';
 import ProductTabs from '@/components/frontend/ProductTabs.vue';
 import productStore from '@/stores/productStore';
 import cartStore from '@/stores/cartStore';
@@ -116,7 +116,7 @@ import { mapState, mapActions } from 'pinia';
 export default {
   components: {
     ProductSwiper,
-    PreferSwiper,
+    PreferProduts,
     ProductTabs,
   },
   data() {

@@ -1,16 +1,9 @@
 <template>
-  <swiper :navigation="true" :modules="modules"
-    class="prefer-swiper mySwiper"
-    :slidesPerView="1"
-    :spaceBetween="20"
-    :option="swiperOption"
-    :breakpoints="{
-      576: {slidesPerView: 2},
-      992: {slidesPerView: 4},
-    }"
-    >
-    <SwiperSlide v-for="item in preferProducts" :key="item.id">
-      <div class="card product-card mx-auto h-100 border"
+  <div class="prefer-product row flex-nowrap justify-content-start mb-3"
+    ref="carousel">
+    <div v-for="item in preferProducts" :key="item.id"
+      class="col-12 col-sm-6 col-md-4 col-lg-3" ref="preferProduct">
+      <div class="card product-card h-100 border mx-auto"
         @click.stop="gotoProduct(item.id)"
         @keydown.stop="gotoProduct(item.id)">
         <div class="overflow-hidden position-relative">
@@ -53,48 +46,43 @@
           </div>
         </div>
       </div>
-    </SwiperSlide>
-  </swiper>
+    </div>
+  </div>
+  <div class="row justify-content-center mb-3 d-none d-lg-flex">
+    <div class="progress col" style="height: 7px;">
+      <div class="progress-bar" role="progressbar" aria-valuenow="25"
+        aria-valuemin="0" aria-valuemax="100"
+        :style="{width: ( position + 4) * 10 + '%'}">
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between">
+    <button class="btn-pre btn btn-primary rounded-pill me-1"
+      @click="goSlide('pre')"
+      :disabled="position<=0">
+      <i class="fa-solid fa-caret-left"></i>
+      上一個
+    </button>
+    <button class="btn-next btn btn-primary rounded-pill ms-1"
+      @click="goSlide('next')"
+      :disabled="position + showNum >= totalNum">
+      下一個
+      <i class="fa-solid fa-caret-right"></i>
+    </button>
+  </div>
 </template>
 
 <script>
 import productStore from '@/stores/productStore';
 import cartStore from '@/stores/cartStore';
 import { mapState, mapActions } from 'pinia';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Autoplay, Navigation, Pagination } from 'swiper';
-import 'swiper/swiper-bundle.css';
 
 export default {
-  components: {
-    Swiper,
-    SwiperSlide,
-  },
   data() {
     return {
-      modules: [Autoplay, Navigation, Pagination],
-      swiperOption: {
-        loop: false,
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-        pagination: {
-          clickable: true,
-        },
-        breakpoints: {
-          1: {
-            slidesPerView: 2,
-            centeredSlides: false,
-            spaceBetween: 10,
-          },
-          992: {
-            slidesPerView: 4,
-            spaceBetween: 20,
-            centeredSlides: false,
-          },
-        },
-      },
+      position: 0,
+      totalNum: 1,
+      showNum: 0,
     };
   },
   computed: {
@@ -104,6 +92,33 @@ export default {
   methods: {
     ...mapActions(productStore, ['getPreferProducts', 'gotoProduct']),
     ...mapActions(cartStore, ['addtoCart']),
+    goSlide(direction) {
+      const productWidth = this.$refs.preferProduct[0].offsetWidth;
+
+      // 商品總數量
+      this.totalNum = this.$refs.preferProduct.length;
+      const { carousel } = this.$refs;
+      // 輪播目前在畫面的寬度
+      const carouselWidth = carousel.offsetWidth;
+
+      // 輪播出現的數量 carouselWidth除商品寬
+      this.showNum = carouselWidth / productWidth;
+
+      // 輪播切換速度
+      carousel.style.transition = 'transform 500ms';
+
+      if (direction === 'pre' && this.position > 0) {
+        this.position -= 1;
+        carousel.style.transform = `translateX(-${
+          this.position * productWidth
+        }px`;
+      } else if (direction === 'next' && this.position + this.showNum < this.totalNum) {
+        this.position += 1;
+        carousel.style.transform = `translateX(-${
+          this.position * productWidth
+        }px`;
+      }
+    },
   },
   created() {
     this.getPreferProducts();

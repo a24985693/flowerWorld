@@ -172,19 +172,21 @@
   </div>
   <section class="container mt-5 py-5 text-center">
     <h4 class="fs-2 mb-5">推薦給您</h4>
-    <PreferSwiper/>
+    <div class="overflow-hidden">
+      <PreferProduts/>
+    </div>
   </section>
 </template>
 
 <script>
-import PreferSwiper from '@/components/frontend/PreferSwiper.vue';
+import PreferProduts from '@/components/frontend/PreferProduts.vue';
 import articleStore from '@/stores/articleStore';
 import pathStore from '@/stores/pathStore';
 import { mapState, mapActions } from 'pinia';
 
 export default {
   components: {
-    PreferSwiper,
+    PreferProduts,
   },
   data() {
     return {
@@ -197,6 +199,7 @@ export default {
   methods: {
     ...mapActions(articleStore, ['getArticles', 'gotoArticle']),
     ...mapActions(pathStore, ['getPath']),
+
   },
   created() {
     this.getArticles();
