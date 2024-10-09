@@ -97,7 +97,7 @@
   </section>
   <section class="container  text-center">
     <h4 class="mb-4">推薦商品</h4>
-    <div class="row">
+    <div class="overflow-hidden">
       <PreferProduts/>
     </div>
   </section>
