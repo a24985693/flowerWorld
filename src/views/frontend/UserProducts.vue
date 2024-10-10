@@ -43,7 +43,7 @@
           <div class="col-6 col-xl-4"
             v-for="item in newData[pagination.current_page -1]"
             :key="item.id">
-            <div class="card product-card mx-auto h-100 shadow-sm"
+            <div class="card bg-transparent product-card mx-auto h-100"
               @click.stop="gotoProduct(item.id)"
               @keydown.stop="gotoProduct(item.id)">
               <div class="overflow-hidden position-relative">
@@ -52,18 +52,17 @@
                   查看更多
                 </div>
                 <img :src="item.imageUrl" class="card-img-top object-fit-cover w-100"
-                  alt="...">
+                  alt="圖片">
               </div>
-              <div class="card-body">
+              <div class="card-body px-0">
                 <div class="heart rounded-circle bg-white p-1 pb-0"
                   @click.stop="setFav(item)"
                   @keydown.stop="setFav(item)">
                   <i :class="favState(item)"/>
                 </div>
-                <p class="fs-14 mb-1">#{{ item.category }}</p>
-                <h5 class="card-title">{{ item.title }}</h5>
-                <div class="d-flex justify-content-between align-items-center">
-                  <p class="price fw-semibold mb-0 text-blue" v-if="item.price">
+                <h5 class="card-title mb-1">{{ item.title }}</h5>
+                <div class="d-flex align-items-center">
+                  <p class="price fw-semibold mb-0 me-2 text-blue" v-if="item.price">
                     NT${{ $filters.currency(item.price) }}
                   </p>
                   <p class="price fw-semibold mb-0 text-blue" v-else>
@@ -74,8 +73,8 @@
                   </del>
                 </div>
               </div>
-              <div class="card-foot px-3 pb-3">
-                <button class="btn btn-sm w-100 btn-outline-info rounded-0 fw-bold py-2"
+              <div class="card-foot">
+                <button class="btn btn-sm w-100 btn-outline-info rounded-0 fw-semibold py-2"
                   @click.stop="addtoCart(item)"
                   :disabled="item.id === btnLoading" >
                   <div class="spinner-border spinner-border-sm"

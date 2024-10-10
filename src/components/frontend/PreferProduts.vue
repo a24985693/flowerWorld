@@ -1,9 +1,9 @@
 <template>
-  <div class="prefer-product row flex-nowrap justify-content-start mb-3"
+  <div class="prefer-product row flex-nowrap justify-content-start mb-4"
     ref="carousel">
     <div v-for="item in preferProducts" :key="item.id"
       class="col-12 col-sm-6 col-md-4 col-lg-3" ref="preferProduct">
-      <div class="card product-card h-100 border mx-auto"
+      <div class="card bg-transparent product-card h-100 mx-auto"
         @click.stop="gotoProduct(item.id)"
         @keydown.stop="gotoProduct(item.id)">
         <div class="overflow-hidden position-relative">
@@ -14,22 +14,26 @@
           <img :src="item.imageUrl" class="card-img-top object-fit-cover w-100"
             alt="圖片">
         </div>
-        <div class="card-body">
-          <p class="fs-14 mb-1 text-start">#{{ item.category }}</p>
-          <h5 class="card-title text-start">{{ item.title }}</h5>
-          <div class="d-flex justify-content-between align-items-center">
-            <p class="price fw-semibold mb-0 text-blue p-0" v-if="item.price">
-              NT${{ $filters.currency(item.price) }}
-            </p>
-            <p class="price fw-semibold mb-0 text-blue p-0" v-else>
-              NT${{ $filters.currency(item.origin_price) }}
-            </p>
-            <del v-if="item.origin_price != item.price">
-              NT${{ $filters.currency(item.origin_price) }}
-            </del>
+        <div class="card-body px-0">
+          <div class="heart rounded-circle bg-white p-1 pb-0"
+            @click.stop="setFav(item)"
+            @keydown.stop="setFav(item)">
+            <i :class="favState(item)"/>
           </div>
+          <h5 class="card-title text-start mb-1">{{ item.title }}</h5>
+            <div class="d-flex align-items-center">
+              <p class="price fw-semibold mb-0 me-2 text-blue" v-if="item.price">
+                NT${{ $filters.currency(item.price) }}
+              </p>
+              <p class="price fw-semibold mb-0 text-blue" v-else>
+                NT${{ $filters.currency(item.origin_price) }}
+              </p>
+              <del v-if="item.origin_price != item.price" class="text-muted">
+                NT${{ $filters.currency(item.origin_price) }}
+              </del>
+            </div>
         </div>
-        <div class="card-foot px-3 pb-3">
+        <div class="card-foot">
           <div class="btn-group btn-group-sm w-100">
             <button class="btn btn-sm w-100 btn-outline-info rounded-0 fw-bold py-2"
               type="button"
@@ -75,6 +79,7 @@
 <script>
 import productStore from '@/stores/productStore';
 import cartStore from '@/stores/cartStore';
+import favoriteStore from '@/stores/favoriteStore';
 import { mapState, mapActions } from 'pinia';
 
 export default {
@@ -92,6 +97,7 @@ export default {
   methods: {
     ...mapActions(productStore, ['getPreferProducts', 'gotoProduct']),
     ...mapActions(cartStore, ['addtoCart']),
+    ...mapActions(favoriteStore, ['setFav', 'favState']),
     goSlide(direction) {
       const productWidth = this.$refs.preferProduct[0].offsetWidth;
 
