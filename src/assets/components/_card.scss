@@ -1,14 +1,12 @@
 .product-card {
   cursor: pointer;
-  max-width: 250px;
   img {
     transform:scale(1,1);transition: all 0.5s ease-out;
-    height: 180px;
   }
   .more-text {
     z-index: 2;
     width: 100%;
-    transform:translateY(90px);transition: all 0.5s ease-out;
+    transform:translateY(110px);transition: all 0.5s ease-out;
   }
   .sale {
     z-index: 2;
@@ -115,9 +113,6 @@
 
 @media (min-width: 576px) {
   .product-card {
-    img {
-      max-height: 180px;
-    }
     .card-body {
       .card-title { 
         font-size: 18px;

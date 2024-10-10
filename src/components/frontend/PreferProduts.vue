@@ -2,7 +2,7 @@
   <div class="prefer-product row flex-nowrap justify-content-start mb-4"
     ref="carousel">
     <div v-for="item in preferProducts" :key="item.id"
-      class="col-12 col-sm-6 col-md-4 col-lg-3" ref="preferProduct">
+      class="col-6 col-md-4 col-lg-3" ref="preferProduct">
       <div class="card bg-transparent product-card h-100 mx-auto"
         @click.stop="gotoProduct(item.id)"
         @keydown.stop="gotoProduct(item.id)">
@@ -11,8 +11,10 @@
             position-absolute top-50">
             查看更多
           </div>
-          <img :src="item.imageUrl" class="card-img-top object-fit-cover w-100"
-            alt="圖片">
+          <div class="ratio ratio-4x3">
+            <img :src="item.imageUrl" class="card-img-top object-fit-cover w-100"
+              alt="圖片">
+          </div>
         </div>
         <div class="card-body px-0">
           <div class="heart rounded-circle bg-white p-1 pb-0"

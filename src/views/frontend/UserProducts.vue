@@ -38,12 +38,11 @@
             </li>
           </ul>
         </div>
-        <div class="row mb-5 gx-3 gy-4
-          justify-content-bewtween">
+        <div class="row mb-5 g-4 justify-content-bewtween">
           <div class="col-6 col-xl-4"
             v-for="item in newData[pagination.current_page -1]"
             :key="item.id">
-            <div class="card bg-transparent product-card mx-auto h-100"
+            <div class="card bg-transparent product-card w-100 h-100"
               @click.stop="gotoProduct(item.id)"
               @keydown.stop="gotoProduct(item.id)">
               <div class="overflow-hidden position-relative">
@@ -51,8 +50,10 @@
                   position-absolute top-50">
                   查看更多
                 </div>
-                <img :src="item.imageUrl" class="card-img-top object-fit-cover w-100"
-                  alt="圖片">
+                <div class="ratio ratio-4x3">
+                  <img :src="item.imageUrl" class="card-img-top object-fit-cover w-100"
+                    alt="圖片">
+                </div>
               </div>
               <div class="card-body px-0">
                 <div class="heart rounded-circle bg-white p-1 pb-0"
