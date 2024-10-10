@@ -2,7 +2,7 @@
   <div class="view-height" @click="toggleNav" @keydown="toggleNav">
     <UserNavbar ref="UserNavbar"/>
     <div class="user-view">
-      <router-view/>
+      <router-view :key="$route.fullPath"/>
     </div>
     <UserFooter/>
     <ToastMessages/>

@@ -103,13 +103,10 @@ const router = createRouter({
   base: process.env.BASE_URL,
   routes,
   linkActiveClass: 'active',
-  scrollBehavior(to) {
-    if (to.fullPath.match('user')) {
-      return {
-        top: 0,
-      };
-    }
-    return {};
+  scrollBehavior() {
+    return {
+      top: 0,
+    };
   },
 });
 
