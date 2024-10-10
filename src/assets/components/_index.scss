@@ -1,15 +1,14 @@
 .header {
-  background-image: url(@/assets/images/headerIMG.jpg);
-  background-position: center center;
+  background-image: url(@/assets/images/headerIMG.png);
+  background-position: center 75%;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   .header-text {
-    top: 40%;
+    top: 35%;
+    left:50%;
     h2 {
       font-size: 24px;
-      font-weight: 800;
-      text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
     }
   }
 
@@ -83,7 +82,7 @@
   margin-top: 100vh; /* 確保內容不被 header 覆蓋 */
 }
 .news {
-  background-image: url('https://images.unsplash.com/photo-1709983966850-575eb81478ac?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-image: url(@/assets/images/indexBG.png);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -102,6 +101,8 @@
 @media (min-width: 576px) {
   .header {
     .header-text {
+      top: 40%;
+      left:30%;
       h2 {
         font-size: 32px;
       }
