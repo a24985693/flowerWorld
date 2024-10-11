@@ -104,7 +104,6 @@ import Dropdown from 'bootstrap/js/dist/dropdown';
 import productStore from '@/stores/productStore';
 import cartStore from '@/stores/cartStore';
 import favoriteStore from '@/stores/favoriteStore';
-import pathStore from '@/stores/pathStore';
 import { mapState, mapActions } from 'pinia';
 
 export default {
@@ -134,12 +133,10 @@ export default {
     ]),
     ...mapActions(cartStore, ['getCart', 'addtoCart']),
     ...mapActions(favoriteStore, ['setFav', 'favState']),
-    ...mapActions(pathStore, ['getPath']),
   },
   created() {
     this.getProducts();
     this.getCart();
-    this.getPath(this.$route.fullPath);
     const dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
     this.dropdownList = dropdownElementList.map((dropdownToggleEl) => (
       new Dropdown(dropdownToggleEl)

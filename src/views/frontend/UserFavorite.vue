@@ -92,7 +92,6 @@
 import productStore from '@/stores/productStore';
 import cartStore from '@/stores/cartStore';
 import favoriteStore from '@/stores/favoriteStore';
-import pathStore from '@/stores/pathStore';
 import { mapState, mapActions } from 'pinia';
 
 export default {
@@ -104,10 +103,6 @@ export default {
     ...mapActions(productStore, ['gotoProduct']),
     ...mapActions(cartStore, ['addtoCart', 'gotoShop']),
     ...mapActions(favoriteStore, ['delFav', 'confirmClearAll']),
-    ...mapActions(pathStore, ['getPath']),
-  },
-  created() {
-    this.getPath(this.$route.fullPath);
   },
 };
 </script>

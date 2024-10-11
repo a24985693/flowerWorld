@@ -110,7 +110,6 @@ import ProductTabs from '@/components/frontend/ProductTabs.vue';
 import productStore from '@/stores/productStore';
 import cartStore from '@/stores/cartStore';
 import favoriteStore from '@/stores/favoriteStore';
-import pathStore from '@/stores/pathStore';
 import { mapState, mapActions } from 'pinia';
 
 export default {
@@ -133,7 +132,6 @@ export default {
     ...mapActions(productStore, ['getProduct']),
     ...mapActions(cartStore, ['addtoCart']),
     ...mapActions(favoriteStore, ['setFav', 'favState']),
-    ...mapActions(pathStore, ['getPath']),
     updateQuantity(icon) {
       if (this.quantity > 20) {
         this.quantity = 20;
@@ -148,7 +146,6 @@ export default {
   },
   created() {
     this.getProduct(this.$route.params.productId);
-    this.getPath(this.$route.fullPath);
   },
 };
 </script>

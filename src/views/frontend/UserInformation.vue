@@ -152,7 +152,6 @@
 import productStore from '@/stores/productStore';
 import cartStore from '@/stores/cartStore';
 import orderStore from '@/stores/orderStore';
-import pathStore from '@/stores/pathStore';
 import { mapState, mapActions } from 'pinia';
 
 export default {
@@ -176,14 +175,12 @@ export default {
     ...mapActions(productStore, ['gotoProduct']),
     ...mapActions(cartStore, ['getCart']),
     ...mapActions(orderStore, ['confirmCreateOrder']),
-    ...mapActions(pathStore, ['getPath']),
     sendCreateOrder() {
       this.confirmCreateOrder(this.form);
     },
   },
   created() {
     this.getCart();
-    this.getPath(this.$route.fullPath);
   },
 };
 </script>

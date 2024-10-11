@@ -158,7 +158,6 @@
 <script>
 import productStore from '@/stores/productStore';
 import cartStore from '@/stores/cartStore';
-import pathStore from '@/stores/pathStore';
 import { mapState, mapActions } from 'pinia';
 
 export default {
@@ -181,7 +180,6 @@ export default {
       'returnPage',
       'gotoShop',
     ]),
-    ...mapActions(pathStore, ['getPath']),
     sendCouponCode() {
       this.addCouponCode(this.tempCouponCode);
       this.tempCouponCode = '';
@@ -189,7 +187,6 @@ export default {
   },
   created() {
     this.getCart();
-    this.getPath(this.$route.fullPath);
   },
 };
 </script>

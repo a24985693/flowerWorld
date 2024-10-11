@@ -1,7 +1,8 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-transport fixed-top nav-transition"
-   :class="{ navAnimated: scrollNum || (fullPath != '/')}"
-   data-name="nav">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top
+    border-bottom border-2 border-primary nav-transition"
+    :class="{ navAnimated: scrollNum}"
+    data-name="nav">
     <div class="container" data-name="nav">
       <router-link class="navbar-brand nav-item" to="/" data-name="nav">
         <img src="@/assets/images/logo.png" alt="logo" width="30px">
@@ -60,7 +61,6 @@
 import Collapse from 'bootstrap/js/dist/collapse';
 import cartStore from '@/stores/cartStore';
 import favoriteStore from '@/stores/favoriteStore';
-import pathStore from '@/stores/pathStore';
 import { mapState, mapActions } from 'pinia';
 
 export default {
@@ -73,11 +73,11 @@ export default {
   computed: {
     ...mapState(cartStore, ['cartLength']),
     ...mapState(favoriteStore, ['favorited']),
-    ...mapState(pathStore, ['fullPath']),
+
   },
   methods: {
     ...mapActions(cartStore, ['getCart']),
-    ...mapActions(pathStore, ['getPath']),
+
     animated() {
       this.scrollNum = window.scrollY;
     },

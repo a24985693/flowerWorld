@@ -147,7 +147,6 @@
 <script>
 import cartStore from '@/stores/cartStore';
 import orderStore from '@/stores/orderStore';
-import pathStore from '@/stores/pathStore';
 import toastStore from '@/stores/toastStore';
 import { mapState, mapActions } from 'pinia';
 
@@ -158,7 +157,6 @@ export default {
   methods: {
     ...mapActions(cartStore, ['returnIndex', 'gotoShop']),
     ...mapActions(orderStore, ['getOrder', 'payOrder']),
-    ...mapActions(pathStore, ['getPath']),
     ...mapActions(toastStore, ['pushMessage']),
     copyOrderId() {
       navigator.clipboard.writeText(this.$refs.orderId.textContent);
@@ -172,7 +170,6 @@ export default {
   },
   created() {
     this.getOrder(this.$route.params.orderId);
-    this.getPath(this.$route.fullPath);
   },
 };
 </script>

@@ -130,7 +130,6 @@
 
 <script>
 import orderStore from '@/stores/orderStore';
-import pathStore from '@/stores/pathStore';
 import { mapState, mapActions } from 'pinia';
 import Collapse from 'bootstrap/js/dist/collapse';
 
@@ -147,7 +146,6 @@ export default {
   },
   methods: {
     ...mapActions(orderStore, ['getOrder', 'gotoPay']),
-    ...mapActions(pathStore, ['getPath']),
     sendSearchOrder() {
       const id = this.orderId.trim();
       this.getOrder(id, 'search');
@@ -159,9 +157,6 @@ export default {
         this.icon = 'fa-solid fa-caret-down';
       }
     },
-  },
-  created() {
-    this.getPath(this.$route.fullPath);
   },
   mounted() {
     const collapseElement = document.querySelector('.collapse');

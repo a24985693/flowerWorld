@@ -22,7 +22,6 @@
 
 <script>
 import articleStore from '@/stores/articleStore';
-import pathStore from '@/stores/pathStore';
 import { mapState, mapActions } from 'pinia';
 
 export default {
@@ -31,11 +30,9 @@ export default {
   },
   methods: {
     ...mapActions(articleStore, ['getArticle']),
-    ...mapActions(pathStore, ['getPath']),
   },
   created() {
     this.getArticle(this.$route.params.id);
-    this.getPath(this.$route.fullPath);
   },
 };
 </script>
