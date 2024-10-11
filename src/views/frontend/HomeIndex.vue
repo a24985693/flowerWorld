@@ -2,7 +2,6 @@
   <LoadingSpinner :active="isLoading"/>
   <header class="header position-relative vh-100"
     style="margin-top:-150px">
-    <div class="bg"></div>
     <div class="blink-star position-relative h-100 w-100">
       <div class="star-1 position-absolute" style="top: 25%; left:40%">
         <div class="d-flex">
@@ -65,7 +64,8 @@
         </div>
       </div>
     </div>
-    <div class="header-text text-center text-sm-start position-absolute translate-middle">
+    <div class="header-text text-center text-sm-start p-2
+      position-absolute translate-middle">
       <h2 class="header-slogan fw-blod mb-3 text-dark">
         在花花世界<br>尋找屬於您的花
       </h2>
