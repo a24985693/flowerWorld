@@ -1,7 +1,7 @@
 <template data-bs-spy="scroll" data-bs-target="#userNav" data-bs-offset="0">
   <LoadingSpinner :active="isLoading"/>
   <header class="header position-relative vh-100"
-    style="margin-top:-150px">
+    style="margin-top:-80px">
     <div class="blink-star position-relative h-100 w-100">
       <div class="star-1 position-absolute" style="top: 25%; left:40%">
         <div class="d-flex">

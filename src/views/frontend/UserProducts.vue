@@ -1,19 +1,24 @@
 <template>
   <LoadingSpinner :active="isLoading"/>
+  <section class="page-title d-flex flex-column justify-content-center text-center">
+    <h3 class="fs-1 fw-bold text-dark">{{ tempCategory }}</h3>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb d-flex justify-content-center">
+        <li class="breadcrumb-item">
+          <router-link to="/" class="text-decoration-none text-dark">
+            首頁
+          </router-link>
+        </li>
+        <li class="breadcrumb-item active">
+          產品
+        </li>
+      </ol>
+    </nav>
+  </section>
   <div class="container">
-    <div class="products-list row mb-5 g-4">
+    <div class="products-list row g-4">
       <div class="col-12 col-md-4 col-xl-3">
         <div class="sticky-md-top" style="top:120px">
-          <nav aria-label="breadcrumb" class="mb-3">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <router-link to="/">首頁</router-link>
-              </li>
-              <li class="breadcrumb-item active">
-                產品
-              </li>
-            </ol>
-          </nav>
           <ProductsSidebar/>
         </div>
       </div>
@@ -50,7 +55,7 @@
                   position-absolute top-50">
                   查看更多
                 </div>
-                <div class="ratio ratio-4x3">
+                <div class="ratio" style="--bs-aspect-ratio: 80%;">
                   <img :src="item.imageUrl" class="card-img-top object-fit-cover w-100"
                     alt="圖片">
                 </div>
@@ -119,6 +124,7 @@ export default {
   computed: {
     ...mapState(productStore, [
       'pagination',
+      'tempCategory',
       'newData',
       'isLoading',
     ]),

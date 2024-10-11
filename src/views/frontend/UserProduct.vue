@@ -1,19 +1,6 @@
 <template>
   <LoadingSpinner :active="isLoading"/>
-  <div class="container">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <router-link to="/">首頁</router-link>
-        </li>
-        <li class="breadcrumb-item">
-          <router-link to="/productsList">產品</router-link>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">
-          {{ product.title }}
-        </li>
-      </ol>
-    </nav>
+  <div class="container mt-5 pt-3">
     <div class="row gy-4 mb-5 justify-content-center product-page">
       <div class="col-12 col-md-5 product-img">
         <ProductSwiper :product="product"/>

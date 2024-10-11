@@ -1,9 +1,23 @@
 <template>
   <LoadingSpinner :active="isLoading"/>
+  <section class="page-title d-flex flex-column justify-content-center text-center">
+    <h3 class="fs-1 fw-bold text-dark">訂單查詢</h3>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb d-flex justify-content-center">
+        <li class="breadcrumb-item">
+          <router-link to="/" class="text-decoration-none text-dark">
+            首頁
+          </router-link>
+        </li>
+        <li class="breadcrumb-item active">
+          訂單查詢
+        </li>
+      </ol>
+    </nav>
+  </section>
   <div class="container">
     <div class="row justify-content-center mb-5">
       <div class="col-12 col-md-7">
-        <h4 class="mb-4">訂單查詢</h4>
         <label for="orderId" class="d-none"/>
         <div class="input-group">
           <input type="text" class="form-control" id="orderId"

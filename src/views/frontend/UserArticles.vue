@@ -1,16 +1,21 @@
 <template>
   <LoadingSpinner :active="isLoading"/>
-  <div class="container userArticles">
-    <nav aria-label="breadcrumb" class="mb-3">
-      <ol class="breadcrumb">
+  <section class="page-title d-flex flex-column justify-content-center text-center">
+    <h3 class="fs-1 fw-bold text-dark">最新消息</h3>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb d-flex justify-content-center">
         <li class="breadcrumb-item">
-          <router-link to="/">首頁</router-link>
+          <router-link to="/" class="text-decoration-none text-dark">
+            首頁
+          </router-link>
         </li>
         <li class="breadcrumb-item active">
           最新消息
         </li>
       </ol>
     </nav>
+  </section>
+  <div class="container userArticles">
     <div class="row justify-content-center">
       <div class="col-md-10"
         v-for="(item, i) in articles" :key="item.id">

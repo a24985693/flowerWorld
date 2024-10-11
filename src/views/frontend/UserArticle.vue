@@ -1,6 +1,6 @@
 <template>
   <LoadingSpinner :active="isLoading"/>
-  <div class="container article">
+  <div class="container article mt-5 pt-3">
     <div class="row justify-content-center">
       <div class="col-md-9">
         <h3 class="text-center mb-4">{{ article.title }}</h3>

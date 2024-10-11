@@ -1,5 +1,20 @@
 <template>
   <LoadingSpinner :active="isLoading"/>
+  <section class="page-title d-flex flex-column justify-content-center text-center">
+    <h3 class="fs-1 fw-bold text-dark">購物車</h3>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb d-flex justify-content-center">
+        <li class="breadcrumb-item">
+          <router-link to="/" class="text-decoration-none text-dark">
+            首頁
+          </router-link>
+        </li>
+        <li class="breadcrumb-item active">
+          購物車
+        </li>
+      </ol>
+    </nav>
+  </section>
   <div class="container cart">
     <div class="row align-items-center flex-column gy-5 gx-3">
       <div class="col-12 col-md-9">

@@ -11,7 +11,7 @@
             position-absolute top-50">
             查看更多
           </div>
-          <div class="ratio ratio-4x3">
+          <div class="ratio" style="--bs-aspect-ratio: 80%;">
             <img :src="item.imageUrl" class="card-img-top object-fit-cover w-100"
               alt="圖片">
           </div>

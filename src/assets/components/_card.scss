@@ -6,7 +6,7 @@
   .more-text {
     z-index: 2;
     width: 100%;
-    transform:translateY(110px);transition: all 0.5s ease-out;
+    transform:translateY(120px);transition: all 0.5s ease-out;
   }
   .sale {
     z-index: 2;
@@ -16,8 +16,8 @@
     .fa-heart {
       font-size: 20px;
       position: absolute;
-      right: 16px;
-      top: 16px;
+      right: 0;
+      top: 18px;
       z-index: 10;
     }
     .fa-solid {

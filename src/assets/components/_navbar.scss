@@ -43,9 +43,6 @@
     border-bottom: 2px solid black;
   }
 }
-.navbar:has(.show){
-  background-color: $primary;
-}
 @media (min-width: 768px) {
   .icon-num {
     line-height:20px; 
