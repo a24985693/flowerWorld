@@ -17,12 +17,12 @@
   </section>
   <div class="container">
     <div class="products-list row g-4">
-      <div class="col-12 col-md-4 col-xl-3">
+      <div class="col-12 col-lg-3">
         <div class="sticky-md-top" style="top:120px">
           <ProductsSidebar/>
         </div>
       </div>
-      <div class="col-12 col-md-8 col-xl-9">
+      <div class="col-12 col-lg-9">
         <div class="dropdown mb-3 text-end">
           <button class="btn btn-light btn-sm dropdown-toggle rounded-0 border" type="button"
             id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -44,7 +44,7 @@
           </ul>
         </div>
         <div class="row mb-5 g-4 justify-content-bewtween">
-          <div class="col-6 col-xl-4"
+          <div class="col-6 col-sm-4"
             v-for="item in newData[pagination.current_page -1]"
             :key="item.id">
             <div class="card bg-transparent product-card w-100 h-100"
@@ -66,12 +66,12 @@
                   @keydown.stop="setFav(item)">
                   <i :class="favState(item)"/>
                 </div>
-                <h5 class="card-title mb-1">{{ item.title }}</h5>
+                <h5 class="card-title fw-medium mb-1">{{ item.title }}</h5>
                 <div class="d-flex align-items-center">
-                  <p class="price fw-semibold mb-0 me-2 text-blue" v-if="item.price">
+                  <p class="price fs-6 text-dark fw-medium mb-0 me-2" v-if="item.price">
                     NT${{ $filters.currency(item.price) }}
                   </p>
-                  <p class="price fw-semibold mb-0 text-blue" v-else>
+                  <p class="price fs-6 text-dark fw-medium mb-0" v-else>
                     NT${{ $filters.currency(item.origin_price) }}
                   </p>
                   <del v-if="item.origin_price != item.price" class="text-muted">

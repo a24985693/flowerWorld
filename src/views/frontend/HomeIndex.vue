@@ -89,7 +89,7 @@
               <div class="card-img-overlay top-auto text-center">
                 <h5 class="card-title fw-bold fs-4">捧花</h5>
                 <p class="card-text">Bridal Bouquet</p>
-                <button class="btn btn-blue rounded-0 mx-auto" type="button">
+                <button class="btn btn-primary rounded-0 mx-auto" type="button">
                   查看更多
                 </button>
               </div>
@@ -106,7 +106,7 @@
                 <div class="card-img-overlay top-auto">
                   <h5 class="card-title fw-bold fs-4">花束</h5>
                   <p class="card-text">Bouquet</p>
-                  <button class="btn btn-blue rounded-0 mx-auto" type="button">
+                  <button class="btn btn-primary rounded-0 mx-auto" type="button">
                     查看更多
                   </button>
                 </div>
@@ -122,7 +122,7 @@
                 <div class="card-img-overlay top-auto">
                   <h5 class="card-title fw-bold fs-4">花瓶</h5>
                   <p class="card-text">Vase</p>
-                  <button class="btn btn-blue rounded-0 mx-auto" type="button">
+                  <button class="btn btn-primary rounded-0 mx-auto" type="button">
                     查看更多
                   </button>
                 </div>
@@ -140,7 +140,7 @@
             <div class="card-img-overlay top-auto">
               <h5 class="card-title fw-bold fs-4">乾燥花</h5>
               <p class="card-text">Dried Flowers</p>
-              <button class="btn btn-blue rounded-0 mx-auto" type="button">
+              <button class="btn btn-primary rounded-0 mx-auto" type="button">
                 查看更多
               </button>
             </div>

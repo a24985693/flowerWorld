@@ -33,7 +33,7 @@
             <router-link class="nav-link position-relative" data-name="nav"
               to="/favorite">
               <i class="fa-solid fa-heart fs-4"/>
-              <span class="icon-num bg-blue text-white rounded-circle position-absolute
+              <span class="icon-num bg-secondary text-dark rounded-circle position-absolute
                 d-inline-block text-center fw-bold"
                 v-if="favorited.length">
                 {{ favorited.length }}
@@ -44,7 +44,7 @@
             <router-link class="nav-link position-relative" data-name="nav"
               to="/cart">
               <i class="fa-solid fa-cart-shopping fs-4"/>
-              <span class="icon-num bg-blue text-white rounded-circle position-absolute
+              <span class="icon-num bg-secondary text-dark rounded-circle position-absolute
                 d-inline-block text-center fw-bold"
                 v-if="cartLength">
                 {{ cartLength }}

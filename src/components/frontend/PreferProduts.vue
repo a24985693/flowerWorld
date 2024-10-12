@@ -22,18 +22,18 @@
             @keydown.stop="setFav(item)">
             <i :class="favState(item)"/>
           </div>
-          <h5 class="card-title text-start mb-1">{{ item.title }}</h5>
-            <div class="d-flex align-items-center">
-              <p class="price fw-semibold mb-0 me-2 text-blue" v-if="item.price">
-                NT${{ $filters.currency(item.price) }}
-              </p>
-              <p class="price fw-semibold mb-0 text-blue" v-else>
-                NT${{ $filters.currency(item.origin_price) }}
-              </p>
-              <del v-if="item.origin_price != item.price" class="text-muted">
-                NT${{ $filters.currency(item.origin_price) }}
-              </del>
-            </div>
+          <h5 class="card-title text-start fw-medium mb-1">{{ item.title }}</h5>
+          <div class="d-flex align-items-center">
+            <p class="price fs-6 text-dark fw-medium mb-0 me-2" v-if="item.price">
+              NT${{ $filters.currency(item.price) }}
+            </p>
+            <p class="price fs-6 text-dark fw-medium mb-0" v-else>
+              NT${{ $filters.currency(item.origin_price) }}
+            </p>
+            <del v-if="item.origin_price != item.price" class="text-muted">
+              NT${{ $filters.currency(item.origin_price) }}
+            </del>
+          </div>
         </div>
         <div class="card-foot">
           <div class="btn-group btn-group-sm w-100">
