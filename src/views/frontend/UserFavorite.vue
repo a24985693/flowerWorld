@@ -1,10 +1,10 @@
 <template>
   <section class="page-title d-flex flex-column justify-content-center text-center">
-    <h3 class="fs-1 fw-bold text-dark">我的收藏</h3>
+    <h3>我的收藏</h3>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb d-flex justify-content-center">
         <li class="breadcrumb-item">
-          <router-link to="/" class="text-decoration-none text-dark">
+          <router-link to="/" class="text-decoration-none text-light">
             首頁
           </router-link>
         </li>

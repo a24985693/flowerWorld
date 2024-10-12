@@ -1,11 +1,11 @@
 <template>
   <LoadingSpinner :active="isLoading"/>
   <section class="page-title d-flex flex-column justify-content-center text-center">
-    <h3 class="fs-1 fw-bold text-dark">{{ tempCategory }}</h3>
+    <h3>{{ tempCategory }}</h3>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb d-flex justify-content-center">
         <li class="breadcrumb-item">
-          <router-link to="/" class="text-decoration-none text-dark">
+          <router-link to="/" class="text-decoration-none text-light">
             首頁
           </router-link>
         </li>

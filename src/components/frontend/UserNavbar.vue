@@ -4,7 +4,7 @@
     :class="{ navAnimated: scrollNum}"
     data-name="nav">
     <div class="container" data-name="nav">
-      <router-link class="navbar-brand nav-item" to="/" data-name="nav">
+      <router-link class="navbar-brand nav-item fw-semibold" to="/" data-name="nav">
         <img src="@/assets/images/logo.png" alt="logo" width="30px">
           花花世界</router-link>
       <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"

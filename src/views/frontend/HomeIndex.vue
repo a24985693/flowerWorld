@@ -66,11 +66,11 @@
     </div>
     <div class="header-text text-center text-sm-start p-2
       position-absolute translate-middle">
-      <h2 class="header-slogan fw-blod mb-3 text-dark">
+      <h2 class="header-slogan fw-bold mb-3 text-info">
         在花花世界<br>尋找屬於您的花
       </h2>
       <p class="h5 mb-4 text-gray d-none d-md-flex">為您的生活增添色彩</p>
-      <router-link class="btn btn-info rounded-0"
+      <router-link class="btn btn-outline-info rounded-0"
         to="/productsList">
         開始探索
         <i class="fa-solid fa-caret-right"/>

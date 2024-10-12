@@ -19,25 +19,21 @@ footer {
   position: relative;
   height: 280px;
   margin-bottom: 48px;
+  background-color: rgba($info, .8);
   background-blend-mode: multiply;
-  background-image: url(https://images.unsplash.com/photo-1553578622-34d24027ce18?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  background-image: url(@/assets/images/titleBG.png);
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: center 55%;
   background-size: cover;
+  color: $light;
+  h3 {
+    font-size: 42px;
+    font-weight: 700;
+  }
   h3, nav {
     z-index: 10;
   }
 }
-.page-title::after {
-  position: absolute;
-  content: "";
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%);
-  background-color: rgba(255, 255, 255, .4);
-  box-shadow: 0px 0px 90px 90px rgba(255, 255, 255, 1);
-}
-
 #app {
   position: absolute;
   top: 0;

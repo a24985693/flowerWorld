@@ -17,7 +17,7 @@
     position: relative;
   }
   .nav-link {
-  padding: 12px;
+    padding: 12px;
   }
   .nav-link:after {
     content: "";
@@ -29,6 +29,9 @@
     transform: translateX(-50%);
     border-bottom: 2px solid transparent;
   }
+  .active:not(.navbar-brand) {
+    font-weight: 600;
+  }
   .active:not(.navbar-brand):after {
     content: "";
     display: block;
@@ -37,10 +40,10 @@
     left: 50%;
     width: 30px;
     transform: translateX(-50%);
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid $info;
   }
   .nav-link:hover:after {
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid $info;
   }
 }
 @media (min-width: 768px) {
