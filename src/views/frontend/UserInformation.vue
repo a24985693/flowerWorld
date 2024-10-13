@@ -15,7 +15,7 @@
       </ol>
     </nav>
   </section>
-  <div class="container">
+  <div class="container information">
     <div class="row justify-content-center mb-5">
       <div class="col col-md-7">
         <div class="row gx-3 text-center">
@@ -40,126 +40,119 @@
         </div>
       </div>
     </div>
-    <div class="row g-5 justify-content-center">
-      <div class="col-12 col-md-6 cart bg-lightbrown">
-        <div class="py-5 px-3">
-          <div class="row border-bottom border-dark border-2
-            py-2 mb-2 fw-semibold">
-            <div class="col-2 d-none d-md-inline-block"></div>
-            <div class="col-12 d-md-none text-center">商品資訊</div>
-            <div class="col-3 d-none d-md-inline-block text-start">品名</div>
-            <div class="col-3 d-none d-md-inline-block text-center">數量</div>
-            <div class="col-4 d-none d-md-inline-block text-end">小計</div>
-          </div>
-          <ul v-for="item in cart.carts" :key="item.id"
-            class="row list-unstyled align-items-center border-bottom
-            py-3 position-relative mb-0">
-            <li class="col-5 col-md-2">
-              <div class="product-img">
-                <img :src="item.product.imageUrl" alt="商品圖片" class="object-fit-cover"
-                  @click="gotoProduct(item.product.id)"
-                  @keydown="gotoProduct(item.product.id)">
+    <VerifyForm v-slot="{ errors }" @submit="sendCreateOrder">
+      <div class="row flex-reverse-row g-4 justify-content-center">
+        <div class="col-12 col-lg-8">
+          <div class="border border-2 border-info">
+            <div class="w-100 bg-info text-white fs-5 text-center py-2">
+              填寫資料
+            </div>
+            <div class="py-4 px-3">
+              <div class="mb-3">
+                <label for="inputEmail" id="emailLabel" class="form-label w-100">Email*</label>
+                  <VerifyField type="email" class="form-control" id="inputEmail"
+                    :class="{ 'is-invalid': errors['email'] }"
+                    rules="email|required" name="email"
+                    placeholder="請輸入Email"
+                    v-model="form.user.email"
+                    aria-label="Email"/>
+                <ErrorMessage name="email" class="invalid-feedback"/>
               </div>
-            </li>
-            <li class="col-7 col-md-10 product-content">
-              <ul class="row flex-column align-items-center flex-md-row list-unstyled gy-2">
-                <li class="col col-md-5 product-title">
-                  <p class="mb-0 fs-6">{{ item.product.title }}</p>
-                </li>
-                <li class="col">
-                  x{{ item.qty }}
-                </li>
-                <li class="col product-price text-md-end">
-                  NT${{ $filters.currency(item.total) }}
+              <div class="mb-3">
+                <label for="inputName" class="form-label w-100">收件人姓名*</label>
+                  <VerifyField type=" text" class="form-control" id="inputName"
+                    :class="{ 'is-invalid': errors['姓名'] }"
+                    rules="required" name="姓名"
+                    placeholder="請輸入姓名"
+                    v-model="form.user.name"/>
+                <ErrorMessage name="姓名" class="invalid-feedback"/>
+              </div>
+              <div class="mb-3">
+                <label for="inputPhone" class="form-label w-100">收件人電話*</label>
+                  <VerifyField type="tel" class="form-control" id="inputPhone"
+                    :class="{ 'is-invalid': errors['電話'] }"
+                    rules="required" name="電話"
+                    placeholder="請輸入電話"
+                    v-model="form.user.tel"/>
+                <ErrorMessage name="電話" class="invalid-feedback"/>
+              </div>
+              <div class="mb-3">
+                <label for="inputAddress" class="form-label w-100">收件人地址*</label>
+                  <VerifyField type="text" class="form-control" id="inputAddress"
+                    :class="{ 'is-invalid': errors['地址'] }"
+                    rules="required" name="地址"
+                    placeholder="請輸入地址"
+                    v-model="form.user.address"/>
+                <ErrorMessage name="地址" class="invalid-feedback"/>
+              </div>
+              <div class="mb-4">
+                <label for="inputComment" class="form-label w-100">留言
+                  <textarea type="email" class="form-control" id="inputComment"
+                    v-model="form.message"/>
+                </label>
+              </div>
+              <div>
+                <router-link to="/cart"
+                  class="fw-semibold link-gray">
+                  回上一步
+                </router-link>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="border border-2 border-info">
+            <div class="w-100 bg-info text-white fs-5 text-center py-2">
+              訂單明細
+            </div>
+            <div class="py-4 px-3">
+              <ul v-for="item in cart.carts" :key="item.id"
+                class="list-unstyled align-items-center border-bottom
+                py-2 position-relative mb-2">
+                <li class="product-content">
+                  <ul class="row align-items-center list-unstyled gy-2">
+                    <li class="col-5 product-title">
+                      <p class="mb-0 fs-6">{{ item.product.title }}</p>
+                    </li>
+                    <li class="col-2 text-center">
+                      x{{ item.qty }}
+                    </li>
+                    <li class="col-5 product-price text-end">
+                      NT${{ $filters.currency(item.total) }}
+                    </li>
+                  </ul>
                 </li>
               </ul>
-            </li>
-          </ul>
-          <ul class="list-unstyled pt-3 mb-0">
-            <li class="text-end d-flex justify-content-between mb-1"
-              :class="{'fs-5 fw-semibold mb-3':cart.final_total == cart.total}">
-              <p>總計</p>
-              <p>NT${{ $filters.currency(cart.total) }}</p>
-            </li>
-            <li v-if="cart.final_total !== cart.total"
-              class="text-end d-flex justify-content-between text-muted mb-1
-              border-bottom border-dark mb-2 pb-2">
-              <p>已套用優惠券</p>
-              <p>{{ cart.carts[0].coupon.code }}</p>
-            </li>
-            <li v-if="cart.final_total !== cart.total"
-              class="text-end d-flex justify-content-between mb-3"
-              :class="{'fs-5 fw-semibold':cart.final_total !== cart.total}">
-              <p>折扣價</p>
-              <p>NT${{ $filters.currency(cart.final_total) }}</p>
-            </li>
-          </ul>
+              <ul class="list-unstyled my-3">
+                <li class="text-end d-flex justify-content-between mb-1">
+                  <p>小計</p>
+                  <p>NT${{ $filters.currency(cart.total) }}</p>
+                </li>
+                <li v-if="cart.final_total !== cart.total"
+                  class="text-end d-flex justify-content-between text-muted mb-1">
+                  <p>折扣</p>
+                  <p>{{ $filters.currency(cart.total-cart.final_total) }}</p>
+                </li>
+                <li v-if="cart.final_total !== cart.total"
+                  class="text-end d-flex justify-content-between text-muted">
+                  <p>已套用優惠券</p>
+                  <p>{{ cart.carts[0].coupon.code }}</p>
+                </li>
+              </ul>
+              <hr>
+              <li class="text-end d-flex justify-content-between fs-5 fw-semibold mb-3">
+                <p>總計</p>
+                <p>NT${{ $filters.currency(cart.final_total) }}</p>
+              </li>
+              <button type="submit" class="btn btn-secondary w-100 fw-bold rounded-0">
+                下一步
+                <i class="fa-solid fa-angle-right"/>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-12 col-md-6">
-        <h4 class="mb-3">訂單資料</h4>
-        <VerifyForm v-slot="{ errors }" @submit="sendCreateOrder">
-          <div class="mb-3">
-            <label for="inputEmail" id="emailLabel" class="form-label w-100">Email*</label>
-              <VerifyField type="email" class="form-control" id="inputEmail"
-                :class="{ 'is-invalid': errors['email'] }"
-                rules="email|required" name="email"
-                placeholder="請輸入Email"
-                v-model="form.user.email"
-                aria-label="Email"/>
-            <ErrorMessage name="email" class="invalid-feedback"/>
-          </div>
-          <div class="mb-3">
-            <label for="inputName" class="form-label w-100">收件人姓名*</label>
-              <VerifyField type=" text" class="form-control" id="inputName"
-                :class="{ 'is-invalid': errors['姓名'] }"
-                rules="required" name="姓名"
-                placeholder="請輸入姓名"
-                v-model="form.user.name"/>
-            <ErrorMessage name="姓名" class="invalid-feedback"/>
-          </div>
-          <div class="mb-3">
-            <label for="inputPhone" class="form-label w-100">收件人電話*</label>
-              <VerifyField type="tel" class="form-control" id="inputPhone"
-                :class="{ 'is-invalid': errors['電話'] }"
-                rules="required" name="電話"
-                placeholder="請輸入電話"
-                v-model="form.user.tel"/>
-            <ErrorMessage name="電話" class="invalid-feedback"/>
-          </div>
-          <div class="mb-3">
-            <label for="inputAddress" class="form-label w-100">收件人地址*</label>
-              <VerifyField type="text" class="form-control" id="inputAddress"
-                :class="{ 'is-invalid': errors['地址'] }"
-                rules="required" name="地址"
-                placeholder="請輸入地址"
-                v-model="form.user.address"/>
-            <ErrorMessage name="地址" class="invalid-feedback"/>
-          </div>
-          <div class="mb-4">
-            <label for="inputComment" class="form-label w-100">留言
-              <textarea type="email" class="form-control" id="inputComment"
-                v-model="form.message"/>
-            </label>
-          </div>
-          <div class="row align-items-center">
-            <div class="col">
-              <router-link to="/cart"
-                class="fw-semibold link-gray">
-                回上一步
-              </router-link>
-            </div>
-            <div class="col">
-              <div class="text-end">
-                <button class="btn btn-blue fw-bold" type="submit">
-                  送出表單
-                </button>
-              </div>
-            </div>
-          </div>
-        </VerifyForm>
-      </div>
-    </div>
+    </VerifyForm>
   </div>
 </template>
 

@@ -12,6 +12,7 @@ export default defineStore('order', {
     order: {
       user: {},
     },
+    originalTotal: 0,
     searchOrder: {},
     warning: '',
     isLoading: false,
@@ -75,6 +76,7 @@ export default defineStore('order', {
             } else {
               this.warning = '訂單號碼輸入錯誤，請重新輸入';
             }
+            this.getOriginalTotal(res.data.order);
           })
           .catch(() => {
             this.isLoading = false;
@@ -87,6 +89,13 @@ export default defineStore('order', {
         this.isLoading = false;
         this.warning = '訂單號碼不可為空，請輸入訂單號碼';
       }
+    },
+    getOriginalTotal(order) {
+      const price = Object.values(order.products).map((item) => item.total);
+      this.originalTotal = 0;
+      price.forEach((item) => {
+        this.originalTotal += item;
+      });
     },
     // 付款
     payOrder() {
