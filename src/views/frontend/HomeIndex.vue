@@ -84,8 +84,8 @@
           <div class="category-top"
             data-aos="fade-up" data-aos-duration="1100">
             <div class="card bg-dark text-light border-0 mb-2">
-              <img src="@/assets/images/bridalBouquet.png"
-                class="card-img object-fit-cover h-100" alt="捧花圖片">
+              <img src="@/assets/images/bridalBouquet.avif" alt="捧花圖片"
+                class="card-img object-fit-cover h-100">
               <div class="card-img-overlay top-auto text-center">
                 <h5 class="card-title fw-bold fs-4">捧花</h5>
                 <p class="card-text">Bridal Bouquet</p>
@@ -101,7 +101,7 @@
             <div class="col-md-6 category-middle">
               <div class="card bg-dark text-light border-0"
                 data-aos="zoom-in" data-aos-duration="1000">
-                <img src="@/assets/images/bouquet.png"
+                <img src="@/assets/images/bouquet.avif"
                   class="card-img object-fit-cover h-100" alt="花束圖片">
                 <div class="card-img-overlay top-auto">
                   <h5 class="card-title fw-bold fs-4">花束</h5>
@@ -117,7 +117,7 @@
             <div class="col-md-6 category-middle">
               <div class="card bg-dark text-light border-0"
                 data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="300">
-                <img src="@/assets/images/vase.png"
+                <img src="@/assets/images/vase.avif"
                   class="card-img object-fit-cover h-100" alt="花瓶圖片">
                 <div class="card-img-overlay top-auto">
                   <h5 class="card-title fw-bold fs-4">花瓶</h5>
@@ -135,7 +135,7 @@
         <div class="col-12 col-md-5 category-bottom">
           <div class="card bg-dark text-light border-0"
             data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-            <img src="@/assets/images/driedFlower.png"
+            <img src="@/assets/images/driedFlower.avif"
               class="card-img object-fit-cover h-100" alt="乾燥花圖片">
             <div class="card-img-overlay top-auto">
               <h5 class="card-title fw-bold fs-4">乾燥花</h5>
@@ -203,6 +203,8 @@ export default {
   },
   created() {
     this.getArticles();
+    const dpr = window.devicePixelRatio;
+    console.log(dpr); // 這會輸出設備的DPR
   },
 };
 </script>

@@ -28,9 +28,9 @@
               </div>
             </div>
             <div class="col-12">
-              <div class="text-center text-md-end text-primary">
+              <div class="text-center text-md-end text-light">
                 ⓒ 2024 huahuaworld All rights reserved. 練習用無商業用途 |
-                <router-link to="/login" class="link-primary">
+                <router-link to="/login" class="link-light">
                   後台登入
                 </router-link>
               </div>

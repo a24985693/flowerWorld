@@ -1,5 +1,5 @@
 .header {
-  background-image: url(@/assets/images/headerIMG.png);
+  background-image: url(@/assets/images/headerIMG.avif);
   background-position: center 75%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -93,7 +93,7 @@
   margin-top: 100vh; /* 確保內容不被 header 覆蓋 */
 }
 .news {
-  background-image: url(@/assets/images/indexBG.png);
+  background-image: url(@/assets/images/indexBG.avif);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
