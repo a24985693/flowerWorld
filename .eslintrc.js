@@ -11,11 +11,11 @@ module.exports = {
     parser: '@babel/eslint-parser',
   },
   rules: {
-    "vuejs-accessibility/label-has-for": ["error", {
-      "required": {
-        "some": ["nesting", "id"]
-      }
+    'vuejs-accessibility/label-has-for': ['error', {
+      required: {
+        some: ['nesting', 'id'],
+      },
     }],
-    "import/no-cycle": [2, { "maxDepth": 1, "ignoreExternal": true }],
+    'import/no-cycle': [2, { maxDepth: 1, ignoreExternal: true }],
   },
 };
