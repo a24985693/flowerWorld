@@ -1,0 +1,16 @@
+.cursor-pointer {
+  cursor: pointer
+}
+.pre-line {
+  white-space: pre-line;
+}
+.bg-cover {
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.title-border-bottom {
+  display: inline-block;
+  border-bottom: 3px $secondary solid;
+  padding-bottom: 5px; 
+}

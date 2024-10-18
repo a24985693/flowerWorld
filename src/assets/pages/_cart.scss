@@ -1,4 +1,7 @@
-.updateNum {
+.swal2-actions {
+  flex-direction: row-reverse;
+}
+.update-num {
   button {
     border: none;
     padding-right: 0;
@@ -15,5 +18,15 @@
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+}
+
+.pay-step {
+  height: 50px;
+  width: 50px;
+  margin: 0 auto 8px auto;
+  border-radius: 50%;
+  span {
+    line-height: 50px;
   }
 }

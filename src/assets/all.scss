@@ -7,13 +7,13 @@
 
 @import "~bootstrap/scss/bootstrap";
 
-@import "./components/height";
+@import "./helpers/helpers";
+@import "./components/layout";
 @import "./components/word";
-@import "./components/index";
 @import "./components/navbar";
 @import "./components/card";
 @import "./components/swiper";
-@import "./components/inputBtn";
-@import "./components/article";
-@import "./components/cart";
-@import "./components/product";
+@import "./pages/index";
+@import "./pages/product";
+@import "./pages/article";
+@import "./pages/cart";

@@ -1,0 +1,108 @@
+@import "../helpers/helpers";
+
+.header {
+  background-image: url(@/assets/images/headerIMG.avif);
+  background-position: center 75%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin-top:-80px;
+  .header-text {
+    transform: translate(-50%, -50%);
+    top: 35%;
+    left:50%;
+    padding: 8px;
+    &::before {
+      position: absolute;
+      content: "";
+      top: 35%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(255, 255, 255, .4);
+      box-shadow: 0px 0px 90px 90px rgba(255, 255, 255, 1);
+      z-index: -1;
+    }
+  }
+
+  .blink-star {
+    .star-1 {
+      animation: blink 1s infinite;
+      animation-direction: alternate;
+    }
+    .star-2 {
+      animation: blink 1.7s infinite;
+      animation-direction: alternate;
+    }
+    .star-3 {
+      animation: blink 0.8s infinite;
+      animation-direction: alternate;
+    }
+    
+    .box-2,
+    .box-1,
+    .box-4,
+    .box-3 {
+      width: 8px;
+      height: 8px;
+      overflow: hidden;
+      position: relative;
+      &::before {
+        content: "";
+        display: block;
+        width: 200%;
+        height: 200%;
+        position: absolute;
+        border-radius: 50%;
+      }
+    }
+    .box-2::before {
+      bottom: 0;
+      left: 0;
+      box-shadow: -4px 4px 0 0 white;
+    }
+    .box-1::before {
+      bottom: 0;
+      right: 0;
+      box-shadow: 4px 4px 0 0 white;
+    }
+    .box-4::before {
+      top: 0;
+      left: 0;
+      box-shadow: -4px -4px 0 0 white;
+    }
+    .box-3::before {
+      top: 0;
+      right: 0;
+      box-shadow: 3px -3px 0 0 white;
+    }
+      
+    @keyframes blink {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+  }
+}
+.news {
+  @extend .bg-cover;
+  background-image: url(@/assets/images/indexBG.avif);
+  background-attachment: fixed;
+}
+
+@media (min-width: 576px) {
+  .header {
+    .header-text {
+      top: 40%;
+      left:30%;
+    }
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  .header, .news {
+      background-attachment: scroll;
+  }
+}

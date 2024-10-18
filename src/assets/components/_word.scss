@@ -1,8 +1,11 @@
+@import "~@fontsource/noto-sans-tc/400.css";
+@import "~@fontsource/noto-sans-tc/500.css";
+@import "~@fontsource/noto-sans-tc/600.css";
+@import "~@fontsource/noto-sans-tc/700.css";
+
 body {
   font-family: "Noto Sans TC", sans-serif;
 }
-h4 {
-  display: inline-block;
-  border-bottom: 3px $secondary solid;
-  padding-bottom: 5px; 
+p {
+  margin-bottom: 0;
 }

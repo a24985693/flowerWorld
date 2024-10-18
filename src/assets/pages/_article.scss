@@ -1,0 +1,36 @@
+.article {
+  img {
+		max-height: 400px;
+	}
+	.content {
+		white-space: pre-line;
+		line-height: 1.8rem;
+	}
+}
+
+.articles {
+	.articles-border {
+		border-bottom: 1px solid $gray;
+	}
+  img {
+		max-height: 400px;
+	}
+	.articles-body {
+		.content {
+			line-height: 1.8rem;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+		}
+		.see-more {
+			margin-right: 10px;
+			transition: all 0.5s ease;
+		}
+		&:hover .see-more{
+			margin-right: 0px;
+		}
+	}
+}
+

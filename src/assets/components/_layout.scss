@@ -1,6 +1,3 @@
-body {
-  overflow-x: hidden;
-}
 footer {
   height: 320px;
   flex: 0;
@@ -15,10 +12,20 @@ footer {
   padding-bottom: 80px;
   padding-top: 75px;
 }
+#app {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
 .page-title {
-  position: relative;
   height: 280px;
   margin-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
   background-color: rgba($info, .8);
   background-blend-mode: multiply;
   background-image: url(@/assets/images/titleBG.avif);
@@ -26,20 +33,13 @@ footer {
   background-position: center 55%;
   background-size: cover;
   color: $light;
-  h3 {
+  h2 {
     font-size: 42px;
     font-weight: 700;
   }
-  h3, nav {
+  h2, nav {
     z-index: 10;
   }
-}
-#app {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
 }
 @media (min-width: 768px) {
   .page-title {
