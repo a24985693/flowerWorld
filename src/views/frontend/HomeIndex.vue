@@ -78,17 +78,19 @@
   <section class="category container my-5 py-5">
     <div class="row text-center g-2">
       <div class="col-12 col-md-7">
-        <div class="category-bridalBouquet mb-2"
-          data-aos="fade-up" data-aos-duration="1100">
-          <div class="category-title">
-            <h3>捧花</h3>
-            <p>Bridal Bouquet</p>
-          </div>
-          <router-link to="/productsList?category=捧花"
-            class="stretched-link"/>
-        </div>
         <div class="row g-2">
-          <div class="col-md-6">
+          <div class="col-12">
+            <div class="category-bridalBouquet"
+              data-aos="fade-up" data-aos-duration="1100">
+              <div class="category-title">
+                <h3>捧花</h3>
+                <p>Bridal Bouquet</p>
+              </div>
+              <router-link to="/productsList?category=捧花"
+                class="stretched-link"/>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
             <div class="category-bouquet"
               data-aos="zoom-in" data-aos-duration="1000">
               <div class="category-title">
@@ -99,7 +101,7 @@
                 class="stretched-link"/>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-12 col-md-6">
             <div class="category-vase"
               data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="300">
               <div class="category-title">

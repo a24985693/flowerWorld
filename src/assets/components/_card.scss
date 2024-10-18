@@ -66,50 +66,6 @@
 
 }
 
-.category {
-  &-bridalBouquet,
-  &-bouquet,
-  &-vase,
-  &-driedFlower {
-    @extend .bg-cover;
-    position: relative;
-    height: 200px;
-    background-color: rgba($dark, .5);
-    background-blend-mode: multiply;
-
-    .category-title {
-      color: #ffffff;
-      position: absolute;
-      top: 70%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 0;
-      height: 0;
-      visibility: hidden;
-    }
-    &:hover .category-title{
-      top: 50%;
-      opacity: 1;
-      height: auto;
-      visibility: visible;
-      transition: all .5s ease;
-    }
-  }
-
-  &-bridalBouquet {
-    background-image: url(@/assets/images/bridalBouquet.avif);
-  }
-  &-bouquet {
-    background-image: url(@/assets/images/bouquet.avif);
-  }
-  &-vase {
-    background-image: url(@/assets/images/vase.avif);
-  }
-  &-driedFlower {
-    background-image: url(@/assets/images/driedFlower.avif);
-  }
-}
-
 @media (min-width: 576px) {
   .product-card {
     .card-body {
@@ -122,22 +78,6 @@
       del {
         font-size: 16px;
       }
-    }
-  }
-}
-  
-
-@media (min-width: 768px) {
-  .category {
-    &-bridalBouquet {
-      height: 350px;
-    }
-    &-bouquet,
-    &-vase {
-      height: 230px;
-    }
-    &-driedFlower {
-      height: 588px;
     }
   }
 }

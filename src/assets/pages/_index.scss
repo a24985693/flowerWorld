@@ -1,7 +1,7 @@
 @import "../helpers/helpers";
 
 .header {
-  background-image: url(@/assets/images/headerIMG.avif);
+  background-image: url(@/assets/images/headerIMG.webp);
   background-position: center 75%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -86,9 +86,53 @@
     }
   }
 }
+.category {
+  &-bridalBouquet,
+  &-bouquet,
+  &-vase,
+  &-driedFlower {
+    @extend .bg-cover;
+    position: relative;
+    height: 200px;
+    background-color: rgba($dark, .5);
+    background-blend-mode: multiply;
+
+    .category-title {
+      color: #ffffff;
+      position: absolute;
+      top: 70%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      height: 0;
+      visibility: hidden;
+    }
+    &:hover .category-title{
+      top: 50%;
+      opacity: 1;
+      height: auto;
+      visibility: visible;
+      transition: all .5s ease;
+    }
+  }
+
+  &-bridalBouquet {
+    background-image: url(@/assets/images/bridalBouquet.webp);
+  }
+  &-bouquet {
+    background-image: url(@/assets/images/bouquet.webp);
+  }
+  &-vase {
+    background-image: url(@/assets/images/vase.webp);
+  }
+  &-driedFlower {
+    background-image: url(@/assets/images/driedFlower.webp);
+  }
+}
+
 .news {
   @extend .bg-cover;
-  background-image: url(@/assets/images/indexBG.avif);
+  background-image: url(@/assets/images/indexBG.webp);
   background-attachment: fixed;
 }
 
@@ -97,6 +141,21 @@
     .header-text {
       top: 40%;
       left:30%;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .category {
+    &-bridalBouquet {
+      height: 350px;
+    }
+    &-bouquet,
+    &-vase {
+      height: 230px;
+    }
+    &-driedFlower {
+      height: 588px;
     }
   }
 }
