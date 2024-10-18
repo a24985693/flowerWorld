@@ -16,10 +16,8 @@ export function getFavoriteIdArr() {
 export function toggleIcon(id) {
   const favoriteIdArr = getFavoriteIdArr();
   if (favoriteIdArr.includes(id)) {
-    console.log('收藏');
     return 'fa-solid fa-heart';
   }
-  console.log('取消收藏');
   return 'fa-regular fa-heart';
 }
 
