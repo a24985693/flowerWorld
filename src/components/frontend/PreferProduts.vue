@@ -1,33 +1,31 @@
 <template>
-  <div class="prefer-product row flex-nowrap justify-content-start mb-4"
-    ref="carousel">
+  <div class="row flex-nowrap mb-4" ref="carousel">
     <div v-for="item in preferProducts" :key="item.id"
       class="col-6 col-md-4 col-lg-3" ref="preferProduct">
-      <div class="card bg-transparent product-card h-100 mx-auto"
+      <div class="card product-card h-100 mx-auto"
         @click.stop="gotoProduct(item.id)"
         @keydown.stop="gotoProduct(item.id)">
         <div class="overflow-hidden position-relative">
-          <div class="more-text text-white text-center fw-bold
-            position-absolute top-50">
+          <div class="more-text">
             查看更多
           </div>
-          <div class="ratio" style="--bs-aspect-ratio: 80%;">
+          <div class="ratio">
             <img :src="item.imageUrl" class="card-img-top object-fit-cover w-100"
               alt="圖片">
           </div>
         </div>
-        <div class="card-body px-0">
-          <div class="heart rounded-circle bg-white p-1 pb-0"
+        <div class="card-body">
+          <div class="heart"
             @click.stop="setFav(item)"
             @keydown.stop="setFav(item)">
             <i :class="favState(item)"/>
           </div>
-          <h5 class="card-title text-start fw-medium mb-1">{{ item.title }}</h5>
+          <h5 class="card-title text-start">{{ item.title }}</h5>
           <div class="d-flex align-items-center">
-            <p class="price fs-6 text-dark fw-medium mb-0 me-2" v-if="item.price">
+            <p class="price me-2" v-if="item.price">
               NT${{ $filters.currency(item.price) }}
             </p>
-            <p class="price fs-6 text-dark fw-medium mb-0" v-else>
+            <p class="price" v-else>
               NT${{ $filters.currency(item.origin_price) }}
             </p>
             <del v-if="item.origin_price != item.price" class="text-muted">
@@ -37,7 +35,7 @@
         </div>
         <div class="card-foot">
           <div class="btn-group btn-group-sm w-100">
-            <button class="btn btn-sm w-100 btn-outline-info rounded-0 fw-bold py-2"
+            <button class="btn btn-sm w-100 btn-outline-info fw-bold py-2"
               type="button"
               @click.stop="addtoCart(item)"
               :disabled="item.id === btnLoading">

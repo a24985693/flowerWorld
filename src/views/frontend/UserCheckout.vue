@@ -1,7 +1,7 @@
 <template>
   <LoadingSpinner :active="isLoading"/>
-  <section class="page-title d-flex flex-column justify-content-center text-center">
-    <h3>付款</h3>
+  <section class="page-title">
+    <h2>付款</h2>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb d-flex justify-content-center">
         <li class="breadcrumb-item">
@@ -15,29 +15,25 @@
       </ol>
     </nav>
   </section>
-  <div class="container checkout">
-    <div class="row justify-content-center mb-5">
-      <div class="col col-md-7">
-        <div class="row gx-3 text-center">
-          <div class="col-4 text-gray">
-            <div class="step rounded-circle border mb-2">
-              <h6>1</h6>
-            </div>
-            <p class="m-0">確認訂單</p>
-          </div>
-          <div class="col-4 text-gray">
-            <div class="step rounded-circle border mb-2">
-              <h6>2</h6>
-            </div>
-            <p class="m-0">填寫資料</p>
-          </div>
-          <div class="col-4">
-            <div class="step rounded-circle bg-info text-white mb-2">
-              <h6>3</h6>
-            </div>
-            <p class="m-0">付款</p>
-          </div>
+  <div class="container">
+    <div class="row justify-content-center text-center mb-5">
+      <div class="col-4 col-md-3">
+        <div class="pay-step border">
+          <span>1</span>
         </div>
+        <span>確認訂單</span>
+      </div>
+      <div class="col-4 col-md-3">
+        <div class="pay-step border">
+          <span>2</span>
+        </div>
+        <span>填寫資料</span>
+      </div>
+      <div class="col-4 col-md-3">
+        <div class="pay-step bg-info text-white">
+          <span>3</span>
+        </div>
+        <span>付款</span>
       </div>
     </div>
     <div class="row g-4" v-if="!order.is_paid">
@@ -54,10 +50,6 @@
             <div class="row border-bottom py-2">
               <div class="col-12 col-sm-4 fw-semibold">Email</div>
               <div class="col-12 col-sm-8">{{ order.user.email }}</div>
-            </div>
-            <div class="row border-bottom py-2">
-              <div class="col-12 col-sm-4 fw-semibold">收件人姓名</div>
-              <div class="col-12 col-sm-8">{{ order.user.name }}</div>
             </div>
             <div class="row border-bottom py-2">
               <div class="col-12 col-sm-4 fw-semibold">收件人姓名</div>
@@ -99,35 +91,35 @@
           </div>
           <div class="py-4 px-3">
             <div v-for="item in order.products" :key="item.id"
-              class="list-unstyled border-bottom mb-0 py-2 mb-2">
-              <div class="row justify-content-center gy-2">
-                <p class="col-5 mb-0">{{ item.product.title }}</p>
-                <p class="col-2 mb-0">x{{ item.qty }}</p>
-                <p class="col-5 mb-0 text-end">
-                  NT${{ $filters.currency(item.total) }}
-                </p>
+              class="row justify-content-center border-bottom py-2">
+              <p class="col-5">{{ item.product.title }}</p>
+              <p class="col-2 text-center">x{{ item.qty }}</p>
+              <p class="col-5 text-end">
+                NT${{ $filters.currency(item.total) }}
+              </p>
+            </div>
+            <div class="my-3">
+              <div class="d-flex justify-content-between mb-1">
+                <p>小計</p>
+                <p>{{ originalTotal }}</p>
+              </div>
+              <div v-if="couponCode"
+                class="d-flex justify-content-between text-muted mb-1">
+                <p>折扣</p>
+                <p>{{ originalTotal - order.total }}</p>
+              </div>
+              <div v-if="couponCode"
+                class="d-flex justify-content-between text-muted mb-1">
+                <p>已使用優惠券</p>
+                <p>{{ couponCode }}</p>
               </div>
             </div>
-            <ul class="list-unstyled d-flex justify-content-between mb-1">
-              <li>小計</li>
-              <li>{{ originalTotal }}</li>
-            </ul>
-            <ul v-if="couponCode"
-              class="list-unstyled text-muted d-flex justify-content-between mb-1">
-              <li>折扣</li>
-              <li>{{ originalTotal - order.total }}</li>
-            </ul>
-            <ul v-if="couponCode"
-              class="list-unstyled text-muted d-flex justify-content-between mb-1">
-              <li>已使用優惠券</li>
-              <li>{{ couponCode }}</li>
-            </ul>
             <hr>
-            <ul class="list-unstyled d-flex justify-content-between mb-3 fs-5 fw-medium">
-              <li>總計</li>
-              <li>NT${{ $filters.currency(order.total) }}</li>
-            </ul>
-            <button type="button" class="btn btn-secondary w-100 fw-bold rounded-0"
+            <div class="d-flex justify-content-between fs-5 fw-semibold mb-3">
+              <p>總計</p>
+              <p>NT${{ $filters.currency(order.total) }}</p>
+            </div>
+            <button type="button" class="btn btn-secondary w-100 fw-bold"
               @click="payOrder">
               確認付款
             </button>
@@ -135,9 +127,10 @@
         </div>
       </div>
     </div>
-    <div class="row py-5 gy-3 justify-content-center bg-lightbrown" v-else>
+    <div class="row justify-content-center py-5 gy-3
+      border border-2 border-info" v-else>
       <div class="col-12 text-center">
-        <i class="fa-regular fa-circle-check text-info mb-3"/>
+        <i class="fa-regular fa-circle-check text-info fs-120 mb-3"/>
         <h3 class="mb-4">付款完成</h3>
         <div class="mb-3">
           <span>訂單編號：</span>
@@ -149,11 +142,11 @@
         <p>感謝您的訂購！您的訂單已成功付款，我們將盡快為您安排配送。</p>
       </div>
       <div class="col-12 text-center">
-        <button class="btn btn-outline-gray rounded-0 ms-3"
+        <button class="btn btn-outline-gray ms-3"
           @click="returnIndex">
           回到首頁
         </button>
-        <button class="btn btn-secondary rounded-0 ms-3"
+        <button class="btn btn-secondary ms-3"
           @click="gotoShop">
           繼續購物
         </button>

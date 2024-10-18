@@ -1,7 +1,7 @@
 <template>
   <LoadingSpinner :active="isLoading"/>
-  <section class="page-title d-flex flex-column justify-content-center text-center">
-    <h3>填寫資料</h3>
+  <section class="page-title">
+    <h2>填寫資料</h2>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb d-flex justify-content-center">
         <li class="breadcrumb-item">
@@ -15,33 +15,29 @@
       </ol>
     </nav>
   </section>
-  <div class="container information">
-    <div class="row justify-content-center mb-5">
-      <div class="col col-md-7">
-        <div class="row gx-3 text-center">
-          <div class="col-4 text-gray">
-            <div class="step rounded-circle border mb-2">
-              <h6>1</h6>
-            </div>
-            <p class="m-0">確認訂單</p>
-          </div>
-          <div class="col-4">
-            <div class="step rounded-circle bg-info text-white mb-2">
-              <h6>2</h6>
-            </div>
-            <p class="m-0">填寫資料</p>
-          </div>
-          <div class="col-4 text-gray">
-            <div class="step rounded-circle border mb-2">
-              <h6>3</h6>
-            </div>
-            <p class="m-0">付款</p>
-          </div>
+  <div class="container">
+    <div class="row justify-content-center text-center mb-5">
+      <div class="col-4 col-md-3">
+        <div class="pay-step border">
+          <span>1</span>
         </div>
+        <span>確認訂單</span>
+      </div>
+      <div class="col-4 col-md-3">
+        <div class="pay-step bg-info text-white">
+          <span>2</span>
+        </div>
+        <span>填寫資料</span>
+      </div>
+      <div class="col-4 col-md-3">
+        <div class="pay-step border">
+          <span>3</span>
+        </div>
+        <span>付款</span>
       </div>
     </div>
     <VerifyForm v-slot="{ errors }" @submit="sendCreateOrder">
-      <div class="row flex-reverse-row g-4 justify-content-center">
+      <div class="row justify-content-center g-4">
         <div class="col-12 col-lg-8">
           <div class="border border-2 border-info">
             <div class="w-100 bg-info text-white fs-5 text-center py-2">
@@ -106,45 +102,36 @@
               訂單明細
             </div>
             <div class="py-4 px-3">
-              <ul v-for="item in cart.carts" :key="item.id"
-                class="list-unstyled align-items-center border-bottom
-                py-2 position-relative mb-2">
-                <li class="product-content">
-                  <ul class="row align-items-center list-unstyled gy-2">
-                    <li class="col-5 product-title">
-                      <p class="mb-0 fs-6">{{ item.product.title }}</p>
-                    </li>
-                    <li class="col-2 text-center">
-                      x{{ item.qty }}
-                    </li>
-                    <li class="col-5 product-price text-end">
-                      NT${{ $filters.currency(item.total) }}
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-              <ul class="list-unstyled my-3">
-                <li class="text-end d-flex justify-content-between mb-1">
+              <div v-for="item in cart.carts" :key="item.id"
+                class="row align-items-center border-bottom py-2">
+                <p class="col-5">{{ item.product.title }}</p>
+                <p class="col-2 text-center">x{{ item.qty }}</p>
+                <p class="col-5 text-end">
+                  NT${{ $filters.currency(item.total) }}
+                </p>
+              </div>
+              <div class="my-3">
+                <div class="d-flex justify-content-between mb-1">
                   <p>小計</p>
                   <p>NT${{ $filters.currency(cart.total) }}</p>
-                </li>
-                <li v-if="cart.final_total !== cart.total"
-                  class="text-end d-flex justify-content-between text-muted mb-1">
+                </div>
+                <div v-if="cart.final_total !== cart.total"
+                  class="d-flex justify-content-between text-muted mb-1">
                   <p>折扣</p>
                   <p>{{ $filters.currency(cart.total-cart.final_total) }}</p>
-                </li>
-                <li v-if="cart.final_total !== cart.total"
-                  class="text-end d-flex justify-content-between text-muted">
+                </div>
+                <div v-if="cart.final_total !== cart.total"
+                  class="d-flex justify-content-between text-muted">
                   <p>已套用優惠券</p>
                   <p>{{ cart.carts[0].coupon.code }}</p>
-                </li>
-              </ul>
+                </div>
+              </div>
               <hr>
-              <li class="text-end d-flex justify-content-between fs-5 fw-semibold mb-3">
+              <div class="d-flex justify-content-between fs-5 fw-semibold mb-3">
                 <p>總計</p>
                 <p>NT${{ $filters.currency(cart.final_total) }}</p>
-              </li>
-              <button type="submit" class="btn btn-secondary w-100 fw-bold rounded-0">
+              </div>
+              <button type="submit" class="btn btn-secondary w-100 fw-bold">
                 下一步
                 <i class="fa-solid fa-angle-right"/>
               </button>

@@ -1,7 +1,7 @@
 <template>
   <LoadingSpinner :active="isLoading"/>
-  <section class="page-title d-flex flex-column justify-content-center text-center">
-    <h3>訂單查詢</h3>
+  <section class="page-title">
+    <h2>訂單查詢</h2>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb d-flex justify-content-center">
         <li class="breadcrumb-item">
@@ -22,7 +22,7 @@
         <div class="input-group">
           <input type="text" class="form-control rounded-0" id="orderId"
             placeholder="請輸入訂單號碼" v-model="orderId">
-          <button class="btn btn-info rounded-0" type="button"
+          <button class="btn btn-info" type="button"
             @click="sendSearchOrder">
             查詢
           </button>
@@ -83,44 +83,42 @@
             <div class="collapse" id="collapseProducts" ref="collapseProducts">
               <div class="py-4">
                 <div v-for="item in searchOrder.products" :key="item.id"
-                  class="list-unstyled border-bottom mb-0 py-2 mb-2">
-                  <div class="row justify-content-center gy-2">
-                    <p class="col-5 mb-0">{{ item.product.title }}</p>
-                    <p class="col-2 mb-0">x{{ item.qty }}</p>
-                    <p class="col-5 mb-0 text-end">
-                      NT${{ $filters.currency(item.total) }}
-                    </p>
+                  class="row justify-content-center border-bottom py-2">
+                  <p class="col-5">{{ item.product.title }}</p>
+                  <p class="col-2 text-center">x{{ item.qty }}</p>
+                  <p class="col-5 text-end">
+                    NT${{ $filters.currency(item.total) }}
+                  </p>
+                </div>
+                <div class="my-3">
+                  <div class="d-flex justify-content-between mb-1">
+                    <p>小計</p>
+                    <p>{{ originalTotal }}</p>
+                  </div>
+                  <div v-if="couponCode"
+                   class="text-muted d-flex justify-content-between mb-1">
+                    <p>折扣</p>
+                    <p>{{ originalTotal - searchOrder.total }}</p>
+                  </div>
+                  <div v-if="couponCode"
+                    class="text-muted d-flex justify-content-between mb-1">
+                    <p>已使用優惠券</p>
+                    <p>{{ couponCode }}</p>
                   </div>
                 </div>
-                <ul class="list-unstyled d-flex justify-content-between mb-1">
-                  <li>小計</li>
-                  <li>{{ originalTotal }}</li>
-                </ul>
-                <ul v-if="couponCode"
-                 class="list-unstyled text-muted d-flex justify-content-between mb-1">
-                  <li>折扣</li>
-                  <li>{{ originalTotal - searchOrder.total }}</li>
-                </ul>
-                <ul v-if="couponCode"
-                  class="list-unstyled text-muted d-flex justify-content-between mb-1">
-                  <li>已使用優惠券</li>
-                  <li>{{ couponCode }}</li>
-                </ul>
                 <hr>
-                <ul class="list-unstyled d-flex justify-content-between mb-3 fs-5 fw-medium">
-                  <li>總計</li>
-                  <li>NT${{ $filters.currency(searchOrder.total) }}</li>
-                </ul>
+                <div class="d-flex justify-content-between mb-3 fs-5 fw-medium">
+                  <p>總計</p>
+                  <p>NT${{ $filters.currency(searchOrder.total) }}</p>
+                </div>
               </div>
             </div>
-            <div class="row flex-column flex-md-row mt-5" v-if="!searchOrder.is_paid">
-              <div class="col-12">
-                <i class="fa-solid fa-triangle-exclamation me-2"/>
-                <span class=" fw-semibold">訂單尚未完成!</span>
-                <p>確認訂單內容後，點擊付款即完成訂單!</p>
-              </div>
-              <div class="col-12 text-end">
-                <button class="btn btn-secondary fw-bold rounded-0" type="button"
+            <div class="mt-4" v-if="!searchOrder.is_paid">
+              <i class="fa-solid fa-triangle-exclamation me-2"/>
+              <span class="fw-semibold">訂單尚未完成!</span>
+              <p class="mb-3">確認訂單內容後，點擊付款即完成訂單!</p>
+              <div class="text-end">
+                <button class="btn btn-secondary fw-bold" type="button"
                   @click="gotoPay(searchOrder.id)">
                   前往付款
                 </button>

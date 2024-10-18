@@ -1,7 +1,7 @@
 <template>
   <LoadingSpinner :active="isLoading"/>
-  <section class="page-title d-flex flex-column justify-content-center text-center">
-    <h3>{{ tempCategory }}</h3>
+  <section class="page-title">
+    <h2>{{ tempCategory }}</h2>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb d-flex justify-content-center">
         <li class="breadcrumb-item">
@@ -24,7 +24,7 @@
       </div>
       <div class="col-12 col-lg-9">
         <div class="dropdown mb-3 text-end">
-          <button class="btn btn-light btn-sm dropdown-toggle rounded-0 border" type="button"
+          <button class="btn btn-light btn-sm dropdown-toggle border" type="button"
             id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
             排序
           </button>
@@ -43,35 +43,34 @@
             </li>
           </ul>
         </div>
-        <div class="row mb-5 g-4 justify-content-bewtween">
+        <div class="row justify-content-bewtween mb-5 g-4">
           <div class="col-6 col-sm-4"
             v-for="item in newData[pagination.current_page -1]"
             :key="item.id">
-            <div class="card bg-transparent product-card w-100 h-100"
+            <div class="card product-card w-100 h-100"
               @click.stop="gotoProduct(item.id)"
               @keydown.stop="gotoProduct(item.id)">
               <div class="overflow-hidden position-relative">
-                <div class="more-text text-white text-center fw-bold
-                  position-absolute top-50">
+                <div class="more-text">
                   查看更多
                 </div>
-                <div class="ratio" style="--bs-aspect-ratio: 80%;">
+                <div class="ratio">
                   <img :src="item.imageUrl" class="card-img-top object-fit-cover w-100"
                     alt="圖片">
                 </div>
               </div>
-              <div class="card-body px-0">
-                <div class="heart rounded-circle bg-white p-1 pb-0"
+              <div class="card-body">
+                <div class="heart"
                   @click.stop="setFav(item)"
                   @keydown.stop="setFav(item)">
                   <i :class="favState(item)"/>
                 </div>
-                <h5 class="card-title fw-medium mb-1">{{ item.title }}</h5>
+                <h5 class="card-title">{{ item.title }}</h5>
                 <div class="d-flex align-items-center">
-                  <p class="price fs-6 text-dark fw-medium mb-0 me-2" v-if="item.price">
+                  <p class="price me-2" v-if="item.price">
                     NT${{ $filters.currency(item.price) }}
                   </p>
-                  <p class="price fs-6 text-dark fw-medium mb-0" v-else>
+                  <p class="price" v-else>
                     NT${{ $filters.currency(item.origin_price) }}
                   </p>
                   <del v-if="item.origin_price != item.price" class="text-muted">
@@ -80,7 +79,7 @@
                 </div>
               </div>
               <div class="card-foot">
-                <button class="btn btn-sm w-100 btn-outline-info rounded-0 fw-semibold py-2"
+                <button class="btn btn-sm w-100 btn-outline-info fw-semibold py-2"
                   @click.stop="addtoCart(item)"
                   :disabled="item.id === btnLoading" >
                   <div class="spinner-border spinner-border-sm"
