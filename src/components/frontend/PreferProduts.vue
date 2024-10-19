@@ -1,78 +1,72 @@
 <template>
-  <div class="row flex-nowrap mb-4" ref="carousel">
-    <div v-for="item in preferProducts" :key="item.id"
-      class="col-6 col-md-4 col-lg-3" ref="preferProduct">
-      <div class="card product-card h-100 mx-auto"
-        @click.stop="gotoProduct(item.id)"
-        @keydown.stop="gotoProduct(item.id)">
-        <div class="overflow-hidden position-relative">
-          <div class="more-text">
-            查看更多
-          </div>
-          <div class="ratio">
-            <img :src="item.imageUrl" class="card-img-top object-fit-cover w-100"
-              alt="圖片">
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="heart"
-            @click.stop="setFav(item)"
-            @keydown.stop="setFav(item)">
-            <i :class="favState(item)"/>
-          </div>
-          <h5 class="card-title text-start">{{ item.title }}</h5>
-          <div class="d-flex align-items-center">
-            <p class="price me-2" v-if="item.price">
-              NT${{ $filters.currency(item.price) }}
-            </p>
-            <p class="price" v-else>
-              NT${{ $filters.currency(item.origin_price) }}
-            </p>
-            <del v-if="item.origin_price != item.price" class="text-muted">
-              NT${{ $filters.currency(item.origin_price) }}
-            </del>
-          </div>
-        </div>
-        <div class="card-foot">
-          <div class="btn-group btn-group-sm w-100">
-            <button class="btn btn-sm w-100 btn-outline-info fw-bold py-2"
-              type="button"
-              @click.stop="addtoCart(item)"
-              :disabled="item.id === btnLoading">
-              <div class="spinner-border spinner-border-sm"
-                role="status"
-                v-if="item.id === btnLoading">
-                <span class="visually-hidden">Loading...</span>
+  <div class="prefer position-relative">
+    <div class="overflow-hidden px-3" style="width: calc();">
+      <div class="row flex-nowrap prefer-carousel gx-4 mb-4" ref="carousel">
+        <div v-for="item in preferProducts" :key="item.id"
+          class="col-12 col-sm-6 col-md-4 col-lg-3" ref="preferProduct">
+          <div class="card product-card h-100 mx-auto"
+            @click.stop="gotoProduct(item.id)"
+            @keydown.stop="gotoProduct(item.id)">
+            <div class="overflow-hidden position-relative">
+              <div class="more-text">
+                查看更多
               </div>
-              <i class="fa-solid fa-cart-shopping me-1" v-else/>
-              加入購物車
-            </button>
+              <div class="ratio ratio-1x1">
+                <img :src="item.imageUrl" class="card-img-top object-fit-cover w-100"
+                  alt="圖片">
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-9 text-start">
+                  <h5 class="card-title">{{ item.title }}</h5>
+                </div>
+                <div class="col-3 text-end">
+                  <div class="heart"
+                    @click.stop="setFav(item)"
+                    @keydown.stop="setFav(item)">
+                    <i :class="favState(item)"/>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center">
+                <p class="price me-2" v-if="item.price">
+                  NT${{ $filters.currency(item.price) }}
+                </p>
+                <p class="price" v-else>
+                  NT${{ $filters.currency(item.origin_price) }}
+                </p>
+                <del v-if="item.origin_price != item.price" class="text-muted">
+                  NT${{ $filters.currency(item.origin_price) }}
+                </del>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center mb-3 d-none d-lg-flex">
+        <div class="progress col p-0" style="height: 7px;">
+          <div class="progress-bar" role="progressbar" aria-valuenow="25"
+            aria-valuemin="0" aria-valuemax="100"
+            :style="{width: ( position + 4) * 10 + '%'}">
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row justify-content-center mb-3 d-none d-lg-flex">
-    <div class="progress col" style="height: 7px;">
-      <div class="progress-bar" role="progressbar" aria-valuenow="25"
-        aria-valuemin="0" aria-valuemax="100"
-        :style="{width: ( position + 4) * 10 + '%'}">
-      </div>
+    <div>
+      <button class="btn-pre btn btn-primary me-1
+        position-absolute top-50 start-0"
+        @click="goSlide('pre')"
+        :disabled="position<=0">
+        <i class="fa-solid fa-caret-left"></i>
+      </button>
+      <button class="btn-next btn btn-primary ms-1
+        position-absolute top-50 end-0"
+        @click="goSlide('next')"
+        :disabled="position + showNum >= totalNum">
+        <i class="fa-solid fa-caret-right"></i>
+      </button>
     </div>
-  </div>
-  <div class="d-flex justify-content-between">
-    <button class="btn-pre btn btn-primary rounded-pill me-1"
-      @click="goSlide('pre')"
-      :disabled="position<=0">
-      <i class="fa-solid fa-caret-left"></i>
-      上一個
-    </button>
-    <button class="btn-next btn btn-primary rounded-pill ms-1"
-      @click="goSlide('next')"
-      :disabled="position + showNum >= totalNum">
-      下一個
-      <i class="fa-solid fa-caret-right"></i>
-    </button>
   </div>
 </template>
 
@@ -96,7 +90,6 @@ export default {
   },
   methods: {
     ...mapActions(productStore, ['getPreferProducts', 'gotoProduct']),
-    ...mapActions(cartStore, ['addtoCart']),
     ...mapActions(favoriteStore, ['setFav', 'favState']),
     goSlide(direction) {
       const productWidth = this.$refs.preferProduct[0].offsetWidth;

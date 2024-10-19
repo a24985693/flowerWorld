@@ -63,8 +63,8 @@
         </div>
       </div>
     </div>
-    <div class="header-text position-absolute text-center text-md-start">
-      <h1 class="header-slogan fw-bold mb-3 text-info">
+    <div class="header-text position-absolute text-center text-sm-start">
+      <h1 class="header-slogan fs-2 fw-bold mb-3 text-info">
         在花花世界<br>尋找屬於您的花
       </h1>
       <p class="fs-5 mb-4 text-gray d-none d-md-flex">為您的生活增添色彩</p>
@@ -131,7 +131,7 @@
     <div class="container py-5">
       <div class="row align-items-center g-4">
         <div class="col-md-3 text-center">
-          <h2 class="title-border-bottom fs-48">News</h2>
+          <h2 class="title-border-bottom fs-1">News</h2>
         </div>
         <div class="col-md-9">
           <ul class="my-md-5">
@@ -152,9 +152,7 @@
   </section>
   <section class="container mt-5 py-5 text-center">
     <h2 class="title-border-bottom mb-5">推薦給您</h2>
-    <div class="overflow-hidden">
-      <PreferProduts/>
-    </div>
+    <PreferProduts/>
   </section>
 </template>
 

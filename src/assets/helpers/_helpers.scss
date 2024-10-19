@@ -11,6 +11,15 @@
 }
 .title-border-bottom {
   display: inline-block;
-  border-bottom: 3px $secondary solid;
-  padding-bottom: 5px; 
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 3px;
+    background-color: $secondary;
+  }
 }

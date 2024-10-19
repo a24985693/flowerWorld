@@ -16,15 +16,11 @@
     </nav>
   </section>
   <div class="container">
-    <div class="products-list row g-4">
-      <div class="col-12 col-lg-3">
-        <div class="sticky-md-top" style="top:120px">
-          <ProductsSidebar/>
-        </div>
-      </div>
-      <div class="col-12 col-lg-9">
-        <div class="dropdown mb-3 text-end">
-          <button class="btn btn-light btn-sm dropdown-toggle border" type="button"
+    <div class="products-list">
+      <div class="d-flex justify-content-between mb-4">
+        <ProductsSidebar/>
+        <div class="dropdown">
+          <button class="btn btn-light btn-sm m-1 m-md-2 dropdown-toggle border" type="button"
             id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
             排序
           </button>
@@ -43,60 +39,53 @@
             </li>
           </ul>
         </div>
-        <div class="row justify-content-bewtween mb-5 g-4">
-          <div class="col-6 col-sm-4"
-            v-for="item in newData[pagination.current_page -1]"
-            :key="item.id">
-            <div class="card product-card w-100 h-100"
-              @click.stop="gotoProduct(item.id)"
-              @keydown.stop="gotoProduct(item.id)">
-              <div class="overflow-hidden position-relative">
-                <div class="more-text">
-                  查看更多
-                </div>
-                <div class="ratio">
-                  <img :src="item.imageUrl" class="card-img-top object-fit-cover w-100"
-                    alt="圖片">
-                </div>
+      </div>
+      <div class="row justify-content-bewtween mb-5 g-4 g-md-5">
+        <div class="col-6 col-sm-4 col-lg-3"
+          v-for="item in newData[pagination.current_page -1]"
+          :key="item.id">
+          <div class="card product-card w-100 h-100"
+            @click.stop="gotoProduct(item.id)"
+            @keydown.stop="gotoProduct(item.id)">
+            <div class="overflow-hidden position-relative">
+              <div class="more-text">
+                查看更多
               </div>
-              <div class="card-body">
-                <div class="heart"
-                  @click.stop="setFav(item)"
-                  @keydown.stop="setFav(item)">
-                  <i :class="favState(item)"/>
-                </div>
-                <h5 class="card-title">{{ item.title }}</h5>
-                <div class="d-flex align-items-center">
-                  <p class="price me-2" v-if="item.price">
-                    NT${{ $filters.currency(item.price) }}
-                  </p>
-                  <p class="price" v-else>
-                    NT${{ $filters.currency(item.origin_price) }}
-                  </p>
-                  <del v-if="item.origin_price != item.price" class="text-muted">
-                    NT${{ $filters.currency(item.origin_price) }}
-                  </del>
-                </div>
+              <div class="ratio ratio-1x1">
+                <img :src="item.imageUrl" class="card-img-top object-fit-cover w-100"
+                  alt="圖片">
               </div>
-              <div class="card-foot">
-                <button class="btn btn-sm w-100 btn-outline-info fw-semibold py-2"
-                  @click.stop="addtoCart(item)"
-                  :disabled="item.id === btnLoading" >
-                  <div class="spinner-border spinner-border-sm"
-                    role="status"
-                    v-if="item.id === btnLoading">
-                    <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="card-body">
+              <div class="row g-1">
+                <div class="col-9">
+                  <h5 class="card-title">{{ item.title }}</h5>
+                </div>
+                <div class="col-3 text-end">
+                  <div class="heart"
+                    @click.stop="setFav(item)"
+                    @keydown.stop="setFav(item)">
+                    <i :class="favState(item)"/>
                   </div>
-                  <i class="fa-solid fa-cart-shopping me-1" v-else/>
-                  加入購物車
-                </button>
+                </div>
+              </div>
+              <div class="d-flex align-items-center">
+                <p class="price me-2" v-if="item.price">
+                  NT${{ $filters.currency(item.price) }}
+                </p>
+                <p class="price" v-else>
+                  NT${{ $filters.currency(item.origin_price) }}
+                </p>
+                <del v-if="item.origin_price != item.price" class="text-muted">
+                  NT${{ $filters.currency(item.origin_price) }}
+                </del>
               </div>
             </div>
           </div>
         </div>
-        <PageNavigation :pagination="pagination"
-          @update-page="getPage"/>
       </div>
+      <PageNavigation :pagination="pagination"
+        @update-page="getPage"/>
     </div>
   </div>
 </template>
@@ -136,7 +125,7 @@ export default {
       'sort',
       'getPage',
     ]),
-    ...mapActions(cartStore, ['getCart', 'addtoCart']),
+    ...mapActions(cartStore, ['getCart']),
     ...mapActions(favoriteStore, ['setFav', 'favState']),
   },
   created() {
