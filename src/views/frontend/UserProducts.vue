@@ -116,7 +116,6 @@ export default {
       'newData',
       'isLoading',
     ]),
-    ...mapState(cartStore, ['btnLoading']),
   },
   methods: {
     ...mapActions(productStore, [

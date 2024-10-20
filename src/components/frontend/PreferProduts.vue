@@ -72,7 +72,6 @@
 
 <script>
 import productStore from '@/stores/productStore';
-import cartStore from '@/stores/cartStore';
 import favoriteStore from '@/stores/favoriteStore';
 import { mapState, mapActions } from 'pinia';
 
@@ -86,7 +85,6 @@ export default {
   },
   computed: {
     ...mapState(productStore, ['preferProducts']),
-    ...mapState(cartStore, ['btnLoading']),
   },
   methods: {
     ...mapActions(productStore, ['getPreferProducts', 'gotoProduct']),
