@@ -108,6 +108,13 @@ export default {
       bsCollapse: {},
     };
   },
+  watch: {
+    $route() {
+      if (this.$route.params.productId != null) {
+        this.getProduct(this.$route.params.productId);
+      }
+    },
+  },
   computed: {
     ...mapState(productStore, ['product', 'isLoading']),
     ...mapState(cartStore, ['btnLoading']),
