@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top
-    border-bottom border-2 border-info nav-transition"
+    border-bottom border-1 border-info nav-transition"
     :class="{ navAnimated: scrollNum}"
     data-name="nav">
     <div class="container" data-name="nav">
