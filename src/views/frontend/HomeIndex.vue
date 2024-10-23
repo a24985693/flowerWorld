@@ -68,11 +68,6 @@
         在花花世界<br>尋找屬於您的花
       </h1>
       <p class="fs-5 mb-4 text-gray d-none d-md-flex">為您的生活增添色彩</p>
-      <router-link class="btn btn-outline-info"
-        to="/productsList">
-        開始探索
-        <i class="fa-solid fa-caret-right"/>
-      </router-link>
     </div>
   </header>
   <section class="category container my-5 py-5">

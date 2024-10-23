@@ -95,30 +95,21 @@
     @extend .bg-cover;
     position: relative;
     height: 200px;
-    background-color: rgba($dark, .2);
+    background-color: rgba($dark, .5);
     background-blend-mode: multiply;
 
     &:hover {
-      background-color: rgba($dark, .5);
+      background-color: rgba($dark, .1);
       background-blend-mode: multiply;
+      transition: all .5s ease;
     }
 
     .category-title {
       color: #ffffff;
       position: absolute;
-      top: 70%;
+      top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      opacity: 0;
-      height: 0;
-      visibility: hidden;
-    }
-    &:hover .category-title{
-      top: 50%;
-      opacity: 1;
-      height: auto;
-      visibility: visible;
-      transition: all .5s ease;
     }
   }
 
