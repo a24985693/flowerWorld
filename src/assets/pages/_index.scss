@@ -86,6 +86,7 @@
     }
   }
 }
+
 .category {
   &-bridalBouquet,
   &-bouquet,
@@ -94,8 +95,13 @@
     @extend .bg-cover;
     position: relative;
     height: 200px;
-    background-color: rgba($dark, .5);
+    background-color: rgba($dark, .2);
     background-blend-mode: multiply;
+
+    &:hover {
+      background-color: rgba($dark, .5);
+      background-blend-mode: multiply;
+    }
 
     .category-title {
       color: #ffffff;
@@ -129,16 +135,18 @@
     background-image: url(@/assets/images/driedFlower.webp);
   }
 }
-
 .news {
-  @extend .bg-cover;
-  background-image: url(@/assets/images/indexBG.webp);
+  background-position: center left;
+  background-size: cover;
+  background-repeat: no-repeat;
   background-attachment: fixed;
+  background-image: url(@/assets/images/indexBG.webp);
 }
 
 .prefer {
   padding: 0 38px;
   .btn-pre, .btn-next {
+    transform: translateY(-50%);
     width: 36px;
     height: 36px;
     padding: 0;

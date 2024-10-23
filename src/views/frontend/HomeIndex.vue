@@ -131,7 +131,7 @@
     <div class="container py-5">
       <div class="row align-items-center g-4">
         <div class="col-md-3 text-center">
-          <h2 class="title-border-bottom fs-1">News</h2>
+          <h2 class="title-border-bottom">最新消息</h2>
         </div>
         <div class="col-md-9">
           <ul class="my-md-5">
@@ -151,7 +151,9 @@
     </div>
   </section>
   <section class="container mt-5 py-5 text-center">
-    <h2 class="title-border-bottom mb-5">推薦給您</h2>
+    <h2 class="title-border-bottom mb-5">
+      熱門商品
+    </h2>
     <PreferProduts/>
   </section>
 </template>
