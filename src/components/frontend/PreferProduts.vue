@@ -44,23 +44,15 @@
           </div>
         </div>
       </div>
-      <div class="row justify-content-center mb-3 d-none d-lg-flex">
-        <div class="progress col p-0" style="height: 7px;">
-          <div class="progress-bar" role="progressbar" aria-valuenow="25"
-            aria-valuemin="0" aria-valuemax="100"
-            :style="{width: ( position + 4) * 10 + '%'}">
-          </div>
-        </div>
-      </div>
     </div>
     <div>
-      <button class="btn-pre btn btn-primary me-1
+      <button class="btn-pre btn border border-2 border-info me-1
         position-absolute top-50 start-0"
         @click="goSlide('pre')"
         :disabled="position<=0">
         <i class="fa-solid fa-caret-left"></i>
       </button>
-      <button class="btn-next btn btn-primary ms-1
+      <button class="btn-next btn border border-2 border-info ms-1
         position-absolute top-50 end-0"
         @click="goSlide('next')"
         :disabled="position + showNum >= totalNum">

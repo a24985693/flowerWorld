@@ -13,7 +13,7 @@
     top: 50%;
     z-index: 2;
     width: 100%;
-    transform:translateY(120px);transition: all 0.5s ease-out;
+    transform:translateY(180px);transition: all 0.5s ease-out;
   }
   .sale {
     z-index: 2;
@@ -25,9 +25,6 @@
       font-size: 20px;
       z-index: 10;
     }
-    .fa-solid {
-      color: $info;
-    }
     .card-title {
       font-size: 16px;
       font-weight: 500;
@@ -36,9 +33,6 @@
     .price {
       font-weight: 500;
       color: $dark;
-    }
-    del {
-      font-size: 12px;
     }
   }
   button {
@@ -65,9 +59,6 @@
     .card-body {
       .card-title { 
         font-size: 18px;
-      }
-      del {
-        font-size: 16px;
       }
     }
   }
