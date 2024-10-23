@@ -17,7 +17,7 @@
   </section>
   <div class="container articles">
     <div class="row justify-content-center cursor-pointer g-4 py-5"
-      :class="{ 'articles-border': i+1 !== articles.length }"
+      :class="{ 'list-border': i+1 !== articles.length }"
       v-for="(item, i) in articles" :key="item.id"
       @click="gotoArticle(item.id)"
       @keydown="gotoArticle(item.id)">
@@ -31,7 +31,7 @@
           <p class="mb-2">
             <small class="text-muted">#{{ item.tag }}</small>
           </p>
-          <p class="content">
+          <p class="content mb-3">
             {{ item.content }}
           </p>
           <div class="see-more fs-14 mt-auto ms-auto mb-0">
