@@ -40,66 +40,64 @@
       <div class="col-12">
         <div class="row mt-3">
           <div class="col-12 col-lg-8">
-            <div class="mb-3">
-              <div class="px-3">
-                <div class="row d-none d-md-flex fw-semibold border-bottom py-3 mb-2">
-                  <div class="col-2"></div>
-                  <div class="col-9">
-                    <div class="row">
-                      <div class="col-5">商品名稱</div>
-                      <div class="col-4 text-center">數量</div>
-                      <div class="col-3 text-end">金額</div>
-                    </div>
+            <div class="mb-3 px-3">
+              <div class="row d-none d-md-flex fw-semibold py-3">
+                <div class="col-2"></div>
+                <div class="col-9">
+                  <div class="row">
+                    <div class="col-5">商品名稱</div>
+                    <div class="col-4 text-center">數量</div>
+                    <div class="col-3 text-end">金額</div>
                   </div>
-                  <div class="col-1"></div>
                 </div>
-                <div v-for="item in cart.carts" :key="item.id"
-                  class="row align-items-center border-bottom border-dark
-                    py-3 mb-0">
-                  <div class="col-5 col-md-2">
-                    <div class="ratio ratio-1x1 cursor-pointer">
-                      <img :src="item.product.imageUrl" alt="商品圖片"
-                      class="object-fit-cover"
-                        @click="gotoProduct(item.product.id)"
-                        @keydown="gotoProduct(item.product.id)">
+                <div class="col-1"></div>
+              </div>
+              <div v-for="item in cart.carts" :key="item.id"
+                class="row align-items-center border-bottom border-dark
+                  py-3 mb-0">
+                <div class="col-5 col-md-2">
+                  <div class="ratio ratio-1x1 cursor-pointer">
+                    <img :src="item.product.imageUrl" alt="商品圖片"
+                    class="object-fit-cover"
+                      @click="gotoProduct(item.product.id)"
+                      @keydown="gotoProduct(item.product.id)">
+                  </div>
+                </div>
+                <div class="col-5 col-md-9">
+                  <div class="row flex-column flex-md-row align-items-center gy-3">
+                    <div class="col-12 col-md-5">
+                      <p>{{ item.product.title }}</p>
+                    </div>
+                    <div class="col-12 col-md-4 update-num
+                      align-items-center justify-content-center">
+                      <div class="input-group border">
+                        <label for="number" class="d-none"/>
+                        <button type="button" class="btn px-2 py-1"
+                          @click="updateCart(item, item.qty-1)"
+                          :disabled="item.qty <= 1">
+                          <i class="fa-solid fa-minus"/>
+                        </button>
+                        <input type="number" class="shadow-none form-control text-center"
+                          v-model="item.qty" id="number" min="1" max="100"
+                          @change="updateCart(item, item.qty)">
+                        <button type="button" class="btn px-2 py-1"
+                          @click="updateCart(item, item.qty+1);"
+                          :disabled="item.qty >= 20">
+                          <i class="fa-solid fa-plus"/>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-3 text-md-end">
+                      NT${{ $filters.currency(item.total) }}
                     </div>
                   </div>
-                  <div class="col-5 col-md-9">
-                    <div class="row flex-column flex-md-row align-items-center gy-3">
-                      <div class="col-12 col-md-5">
-                        <p>{{ item.product.title }}</p>
-                      </div>
-                      <div class="col-12 col-md-4 update-num
-                        align-items-center justify-content-center">
-                        <div class="input-group border">
-                          <label for="number" class="d-none"/>
-                          <button type="button" class="btn px-2 py-1"
-                            @click="updateCart(item, item.qty-1)"
-                            :disabled="item.qty <= 1">
-                            <i class="fa-solid fa-minus"/>
-                          </button>
-                          <input type="number" class="shadow-none form-control text-center"
-                            v-model="item.qty" id="number" min="1" max="100"
-                            @change="updateCart(item, item.qty)">
-                          <button type="button" class="btn px-2 py-1"
-                            @click="updateCart(item, item.qty+1);"
-                            :disabled="item.qty >= 20">
-                            <i class="fa-solid fa-plus"/>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="col-12 col-md-3 text-md-end">
-                        NT${{ $filters.currency(item.total) }}
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-2 col-md-1">
-                    <div class="delete-icon text-end">
-                      <button class="btn px-0" type="button"
-                        @click="deleteCartItem(item)">
-                        <i class="fa-solid fa-trash text-gray fs-5"/>
-                      </button>
-                    </div>
+                </div>
+                <div class="col-2 col-md-1">
+                  <div class="delete-icon text-end">
+                    <button class="btn px-0" type="button"
+                      @click="deleteCartItem(item)">
+                      <i class="fa-solid fa-trash text-gray fs-5"/>
+                    </button>
                   </div>
                 </div>
               </div>

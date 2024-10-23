@@ -14,19 +14,19 @@
       </ol>
     </nav>
   </section>
-  <div class="container cart" v-if="favorited.length">
+  <div class="container" v-if="favorited.length">
     <div class="row justify-content-center">
       <div class="col-12 col-md-10">
-        <div class="border border-2 border-info p-3 p-md-4 mb-3">
-          <div class="row d-none d-md-flex fw-semibold border-bottom pb-3">
+        <div class="border border-2 border-info p-3 p-md-4 pt-md-5 mb-3">
+          <div class="row d-none d-md-flex fw-semibold pb-2">
             <div class="col-2"></div>
             <div class="col-3">商品名稱</div>
             <div class="col-3 text-center">金額</div>
             <div class="col-4"></div>
           </div>
-          <div v-for="item in favorited" :key="item.id"
-            class="row align-items-center border-bottom
-            py-3 mb-0 position-relative">
+          <div v-for="(item, i) in favorited" :key="item.id"
+            class="row align-items-center py-3 mb-0 position-relative"
+            :class="{'list-border': i+1 !== favorited.length}">
             <div class="col-5 col-md-2">
               <div class="ratio ratio-1x1 cursor-pointer">
                 <img :src="item.imageUrl" alt="商品圖片"
