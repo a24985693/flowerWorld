@@ -47,13 +47,13 @@
     </div>
     <div>
       <button class="btn-pre btn border border-2 border-info me-1
-        position-absolute top-50 start-0"
+        position-absolute top-50 start-0" type="button"
         @click="goSlide('pre')"
         :disabled="position<=0">
         <i class="fa-solid fa-caret-left"></i>
       </button>
       <button class="btn-next btn border border-2 border-info ms-1
-        position-absolute top-50 end-0"
+        position-absolute top-50 end-0" type="button"
         @click="goSlide('next')"
         :disabled="position + showNum >= totalNum">
         <i class="fa-solid fa-caret-right"></i>
