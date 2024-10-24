@@ -1,22 +1,26 @@
 .cursor-pointer {
   cursor: pointer
 }
+
 .pre-line {
   white-space: pre-line;
 }
+
 .bg-cover {
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
 }
+
 .title-border-bottom {
   display: inline-block;
   position: relative;
   z-index: 5;
+
   &::before {
     content: "";
     position: absolute;
-    bottom:0;
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -25,6 +29,7 @@
     z-index: -1;
   }
 }
+
 .list-border {
   border-bottom: 1px solid $dark;
 }

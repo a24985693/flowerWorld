@@ -2,16 +2,19 @@ footer {
   height: 320px;
   flex: 0;
 }
+
 .view-height {
   display: flex;
   flex-direction: column;
   min-height: 100%;
 }
+
 .user-view {
   flex: 1;
   padding-bottom: 80px;
   padding-top: 75px;
 }
+
 #app {
   position: absolute;
   top: 0;
@@ -19,6 +22,7 @@ footer {
   right: 0;
   left: 0;
 }
+
 .page-title {
   height: 280px;
   margin-bottom: 48px;
@@ -33,14 +37,18 @@ footer {
   background-position: center 55%;
   background-size: cover;
   color: $light;
+
   h2 {
     font-size: 42px;
     font-weight: 700;
   }
-  h2, nav {
+
+  h2,
+  nav {
     z-index: 10;
   }
 }
+
 @media (min-width: 768px) {
   .page-title {
     height: 320px;

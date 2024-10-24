@@ -1,12 +1,14 @@
 .swal2-actions {
   flex-direction: row-reverse;
 }
+
 .update-num {
   button {
     border: none;
     padding-right: 0;
     padding-left: 0;
   }
+
   input {
     text-align: center;
     border: 0;
@@ -14,6 +16,7 @@
     width: 50px;
     outline: none;
   }
+
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -26,6 +29,7 @@
   width: 50px;
   margin: 0 auto 8px auto;
   border-radius: 50%;
+
   span {
     line-height: 50px;
   }

@@ -1,18 +1,22 @@
 .navbar {
   text-align: center;
+
   .icon-num {
-    line-height:20px; 
-    width:20px; 
+    line-height: 20px;
+    width: 20px;
     font-size: 12px;
     top: 0px;
     left: 50%;
   }
+
   .nav-item {
     position: relative;
   }
+
   .nav-link {
     padding: 12px;
   }
+
   .nav-link:after {
     content: "";
     display: block;
@@ -23,9 +27,11 @@
     transform: translateX(-50%);
     border-bottom: 2px solid transparent;
   }
+
   .active:not(.navbar-brand) {
     font-weight: 600;
   }
+
   .active:not(.navbar-brand):after {
     content: "";
     display: block;
@@ -36,10 +42,12 @@
     transform: translateX(-50%);
     border-bottom: 2px solid $info;
   }
+
   .nav-link:hover:after {
     border-bottom: 2px solid $info;
   }
 }
+
 @media (min-width: 768px) {
   .icon-num {
     right: -3px;

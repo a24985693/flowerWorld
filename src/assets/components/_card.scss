@@ -2,9 +2,12 @@
 
 .product-card {
   cursor: pointer;
+
   img {
-    transform:scale(1,1);transition: all 0.5s ease-out;
+    transform: scale(1, 1);
+    transition: all 0.5s ease-out;
   }
+
   .more-text {
     color: #ffffff;
     font-weight: 700;
@@ -13,11 +16,14 @@
     top: 50%;
     z-index: 2;
     width: 100%;
-    transform:translateY(180px);transition: all 0.5s ease-out;
+    transform: translateY(180px);
+    transition: all 0.5s ease-out;
   }
+
   .sale {
     z-index: 2;
   }
+
   .card-body {
     padding: 16px 0;
 
@@ -25,30 +31,36 @@
       font-size: 20px;
       z-index: 10;
     }
+
     .card-title {
       font-size: 16px;
       font-weight: 500;
       margin-bottom: 8px;
     }
+
     .price {
       font-weight: 500;
       color: $dark;
     }
   }
+
   button {
     z-index: 10;
   }
+
   button:hover {
     color: $white;
     background-color: $info;
   }
+
   &:hover img {
     transform: scale(1.1);
     transition: 0.2s;
     filter: brightness(70%);
   }
+
   &:hover .more-text {
-    transform:translateY(0);
+    transform: translateY(0);
     transition: 0.3s;
   }
 
@@ -57,7 +69,7 @@
 @media (min-width: 576px) {
   .product-card {
     .card-body {
-      .card-title { 
+      .card-title {
         font-size: 18px;
       }
     }
