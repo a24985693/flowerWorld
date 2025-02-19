@@ -114,6 +114,7 @@ export default defineStore('product', {
       } else {
         this.renderProducts.sort((a, b) => b.price - a.price);
       }
+      this.ProductsArr = this.renderProducts;
       this.renderCategory();
     },
     updateCategory(category) {
