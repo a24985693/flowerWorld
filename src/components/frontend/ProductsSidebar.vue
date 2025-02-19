@@ -32,10 +32,10 @@ export default {
   methods: {
     ...mapActions(productStore, ['updateCategory', 'getProducts']),
     changeCategory(e) {
-      if (e.target.value) {
-        this.category = e.target.value.trim();
-      } else {
+      if (e.target.nodeName.trim() === 'BUTTON') {
         this.category = e.target.textContent.trim();
+      } else {
+        return;
       }
       this.$router.push({
         name: 'productsList',
